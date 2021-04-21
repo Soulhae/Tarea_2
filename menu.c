@@ -25,7 +25,7 @@ void aplicarOpciones(int opcion)
 	switch (opcion)
 	{
 		case 1:
-			agregarPokemon()
+			agregarPokemon();
 		case 2:
 		case 3:
 		case 4:
