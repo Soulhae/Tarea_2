@@ -6,7 +6,6 @@
 
 void mostrarOpciones()
 {
-	printf("titulo\n");
 	printf("opcion\n");
 	printf("1. Importar/Exportar desde un archivo CSV\n");
 	printf("2. Pokemon atrapado\n");
@@ -21,11 +20,6 @@ void mostrarOpciones()
 
 }
 
-void agregarPokemon()
-{
-
-}
-
 void caso1();
 
 void caso2()
@@ -37,19 +31,11 @@ void caso2()
 	char evolucionPosterior[15];
 	int PC, PS, numPokedex;
 
-
-
-
 	Pokemon* nuevo = crearPokemon();
 }
 
 void aplicarOpciones(int opcion)
 {
-	HashMap* mapaNombre = createMap(20);
-	HashMap* mapaId = createMap(20);
-	HashMap* mapaTipo = createMap(20);
-	HashMap* mapaRegion = createMap(20);
-
 	switch (opcion)
 	{
 		case 1:
@@ -110,6 +96,11 @@ void imagen()
 void interfaz()
 {
 	imagen();
+
+	HashMap* mapaNombre = createMap(20);
+	HashMap* mapaId = createMap(20);
+	HashMap* mapaTipo = createMap(20);
+	HashMap* mapaRegion = createMap(20);
 
 	int opcion;
 
