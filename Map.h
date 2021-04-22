@@ -1,9 +1,12 @@
 #ifndef MAP_H
 #define MAP_H
 
+typedef struct Pair Pair;
 typedef struct HashMap HashMap;
 
 HashMap * createMap(long capacity);
+
+void enlarge(HashMap * map);
 
 void insertMap(HashMap * table, char * key, void * value);
 
@@ -15,6 +18,6 @@ void * firstMap(HashMap * table);
 
 void * nextMap(HashMap * table);
 
-void enlarge(HashMap * map);
+long capacidad(HashMap * map);
 
 #endif /* MAP_H */

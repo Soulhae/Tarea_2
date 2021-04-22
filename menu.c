@@ -1,8 +1,28 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdlib.h> // lo usamos????
+#include <string.h>
 #include "map.h"
 #include "menu.h"
 #include "pokemon.h"
+
+void imagen()
+{
+	printf("                                    ,'\\\n");
+    printf("    _.----.        ____         ,'  _\\   ___    ___     ____\n");
+    printf("_,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.\n");
+    printf("\\      __    \\    '-.  | /   `.  ___    |    \\/    |   '-.   \\ |  |\n");
+    printf(" \\.    \\ \\   |  __  |  |/    ,','_  `.  |          | __  |    \\|  |\n");
+    printf("   \\    \\/   /,' _`.|      ,' / / / /   |          ,' _`.|     |  |\n");
+    printf("    \\     ,-'/  /   \\    ,'   | \\/ / ,`.|         /  /   \\  |     |\n");
+    printf("     \\    \\ |   \\_/  |   `-.  \\    `'  /|  |    ||   \\_/  | |\\    |\n");
+    printf("      \\    \\ \\      /       `-.`.___,-' |  |\\  /| \\      /  | |   |\n");
+    printf("       \\    \\ `.__,'|  |`-._    `|      |__| \\/ |  `.__,'|  | |   |\n");
+    printf("        \\_.-'       |__|    `-._ |              '-.|     '-.| |   |\n");
+    printf("                                `'                            '-._|\n");
+    printf("\n");
+    printf("\n");
+
+}
 
 void mostrarOpciones()
 {
@@ -22,19 +42,57 @@ void mostrarOpciones()
 
 void caso1();
 
-void caso2()
+void caso2(HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *mapaRegion)
 {
 	char nombre[15];
 	char tipo[18][10]; // OJITOOOOOOOOOOOOOOO
 	char sexo[3];
-	char evoucionPrevia[15];
-	char evolucionPosterior[15];
+	char evPrevia[15];
+	char evPosterior[15];
 	int PC, PS, numPokedex;
+	char region[10];
 
-	Pokemon* nuevo = crearPokemon();
+	printf("Ingrese el nombre del pokemon: \n");
+	scanf("%s", nombre);
+	//getchar(); // ???
+	
+	// SCAN tipo pero no sabemos como aun OJITO 
+
+	printf("Ingrese los puntos de combate del pokemon: \n");
+	scanf("%i", &PC);
+
+	printf("Ingrese los puntos de salud del pokemon: \n");
+	scanf("%i", &PS);
+
+	printf("Ingrese el sexo del pokemon (M o F): \n");
+	do
+	{
+		scanf("%s", sexo);
+	} while((strlen(sexo)) > 1);
+
+	printf("Ingrese su evolucion previa (Si no tiene simplemente escriba: No tiene):\n");
+	scanf("%s", evPrevia);
+
+	printf("Ingrese su evolucion posterior (Si no tiene simplemente escriba: No tiene):\n");
+	scanf("%s", evPosterior);
+
+	printf("Ingrese el numero en la pokedex del pokemon: \n");
+	// Funcion comparar numero pokedex????
+	scanf("%i", &numPokedex);
+
+	printf("Ingese la region del pokemon: \n");
+	scanf("%s", region);
+
+	Pokemon* nuevo = crearPokemon(nombre, tipo, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region);
+
+	insertMap(mapaNombre, nombre, nuevo);
+	insertMap(mapaId, nombre, nuevo);
+	insertMap(mapaTipo, nombre, nuevo);
+	insertMap(mapaRegion, nombre, nuevo);
+	
 }
 
-void aplicarOpciones(int opcion)
+void aplicarOpciones(int opcion, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *mapaRegion)
 {
 	switch (opcion)
 	{
@@ -42,7 +100,7 @@ void aplicarOpciones(int opcion)
 	
 			break;
 		case 2:
-			caso2();
+			caso2(mapaNombre, mapaId, mapaTipo, mapaRegion);
 			break;
 		case 3:
 
@@ -74,29 +132,12 @@ void aplicarOpciones(int opcion)
 	}
 }
 
-void imagen()
-{
-	printf("                                    ,'\\\n");
-    printf("    _.----.        ____         ,'  _\\   ___    ___     ____\n");
-    printf("_,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.\n");
-    printf("\\      __    \\    '-.  | /   `.  ___    |    \\/    |   '-.   \\ |  |\n");
-    printf(" \\.    \\ \\   |  __  |  |/    ,','_  `.  |          | __  |    \\|  |\n");
-    printf("   \\    \\/   /,' _`.|      ,' / / / /   |          ,' _`.|     |  |\n");
-    printf("    \\     ,-'/  /   \\    ,'   | \\/ / ,`.|         /  /   \\  |     |\n");
-    printf("     \\    \\ |   \\_/  |   `-.  \\    `'  /|  |    ||   \\_/  | |\\    |\n");
-    printf("      \\    \\ \\      /       `-.`.___,-' |  |\\  /| \\      /  | |   |\n");
-    printf("       \\    \\ `.__,'|  |`-._    `|      |__| \\/ |  `.__,'|  | |   |\n");
-    printf("        \\_.-'       |__|    `-._ |              '-.|     '-.| |   |\n");
-    printf("                                `'                            '-._|\n");
-    printf("\n");
-    printf("\n");
-
-}
-
 void interfaz()
 {
 	imagen();
 
+	HashMap* almacenamiento = createMap(20);
+	HashMap* pokedex = createMap(20);
 	HashMap* mapaNombre = createMap(20);
 	HashMap* mapaId = createMap(20);
 	HashMap* mapaTipo = createMap(20);
@@ -113,6 +154,6 @@ void interfaz()
 			printf("Atrapalos ya!\n");
 			return;
 		}
-		else aplicarOpciones(opcion);
+		else aplicarOpciones(opcion, mapaNombre, mapaId, mapaTipo, mapaRegion);
 	} while(opcion != 0);
 }

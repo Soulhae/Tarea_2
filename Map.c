@@ -43,13 +43,25 @@ int is_equal(void* key1, void* key2){
     return 0;
 }
 
+void enlarge(HashMap * map) {
+    enlarge_called = 1; //no borrar (testing purposes)
+    Pair** aux = map->buckets;
+    long capacidad = map->capacity;
+    map->capacity *= 2;
+    map->buckets = (Pair **) calloc(map->capacity, sizeof(Pair *));
+    map->size = 0;
+    for(int i=0 ; i<capacidad ; i++){
+      if(aux[i] != NULL){
+        insertMap(map, aux[i]->key, aux[i]->value);
+      }
+    }
+}
 
 void insertMap(HashMap * map, char * key, void * value) {
   long posicion = hash(key, map->capacity);
-  Pair *ola = createPair(key, value);
-  if((map->size)>=((map->capacity)*0.7)){
-    map = (HashMap *) realloc(map, sizeof(HashMap)*2);
-    map->capacity *= 2;
+  Pair* nuevo = createPair(key, value);
+  if((map->size) >= ((map->capacity)*0.7)){
+    enlarge(map);
   }
   while(map->buckets[posicion] != NULL){
     posicion++;
@@ -58,26 +70,11 @@ void insertMap(HashMap * map, char * key, void * value) {
     }
   }
   if(is_equal(key, map->buckets[posicion]) == 0){
-    map->buckets[posicion] = ola;
+    map->buckets[posicion] = nuevo;
     map->size++;
     map->current = posicion;
   }
 }
-
-void enlarge(HashMap * map) {
-    enlarge_called = 1; //no borrar (testing purposes)
-    Pair **alo = map->buckets;
-    long miau = map->capacity;
-    map->capacity *= 2;
-    map->buckets = (Pair **) calloc(map->capacity, sizeof(Pair *));
-    map->size = 0;
-    for(int i=0 ; i<miau ; i++){
-      if(alo[i] != NULL){
-        insertMap(map, alo[i]->key, alo[i]->value);
-      }
-    }
-}
-
 
 HashMap * createMap(long capacity) {
     HashMap *mapa = (HashMap *) malloc(sizeof(HashMap));
@@ -140,4 +137,9 @@ void * nextMap(HashMap * map) {
       posicion++;
     }
     return NULL;
+}
+
+long capacidad(HashMap * map)
+{
+  return map->capacity;
 }
