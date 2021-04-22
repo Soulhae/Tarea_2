@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "map.h"
 #include "menu.h"
+#include "pokemon.h"
 
 void mostrarOpciones()
 {
@@ -9,7 +10,7 @@ void mostrarOpciones()
 	printf("opcion\n");
 	printf("1. Importar/Exportar desde un archivo CSV\n");
 	printf("2. Pokemon atrapado\n");
-	printf("3. Evolcuionar pokemon\n");
+	printf("3. Evolucionar pokemon\n");
 	printf("4. Buscar mis pokemon por tipo\n");
 	printf("5. Buscar mis pokemon por nombre\n");
 	printf("6. Buscar por nombre en pokedex\n");
@@ -20,15 +21,42 @@ void mostrarOpciones()
 
 }
 
+void agregarPokemon()
+{
+
+}
+
+void caso1();
+
+void caso2()
+{
+	char nombre[15];
+	char tipo[18][10]; // OJITOOOOOOOOOOOOOOO
+	char sexo[3];
+	char evoucionPrevia[15];
+	char evolucionPosterior[15];
+	int PC, PS, numPokedex;
+
+
+
+
+	Pokemon* nuevo = crearPokemon();
+}
+
 void aplicarOpciones(int opcion)
 {
+	HashMap* mapaNombre = createMap(20);
+	HashMap* mapaId = createMap(20);
+	HashMap* mapaTipo = createMap(20);
+	HashMap* mapaRegion = createMap(20);
+
 	switch (opcion)
 	{
 		case 1:
-			agregarPokemon();
+	
 			break;
 		case 2:
-
+			caso2();
 			break;
 		case 3:
 
@@ -60,9 +88,31 @@ void aplicarOpciones(int opcion)
 	}
 }
 
+void imagen()
+{
+	printf("                                    ,'\\\n");
+    printf("    _.----.        ____         ,'  _\\   ___    ___     ____\n");
+    printf("_,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.\n");
+    printf("\\      __    \\    '-.  | /   `.  ___    |    \\/    |   '-.   \\ |  |\n");
+    printf(" \\.    \\ \\   |  __  |  |/    ,','_  `.  |          | __  |    \\|  |\n");
+    printf("   \\    \\/   /,' _`.|      ,' / / / /   |          ,' _`.|     |  |\n");
+    printf("    \\     ,-'/  /   \\    ,'   | \\/ / ,`.|         /  /   \\  |     |\n");
+    printf("     \\    \\ |   \\_/  |   `-.  \\    `'  /|  |    ||   \\_/  | |\\    |\n");
+    printf("      \\    \\ \\      /       `-.`.___,-' |  |\\  /| \\      /  | |   |\n");
+    printf("       \\    \\ `.__,'|  |`-._    `|      |__| \\/ |  `.__,'|  | |   |\n");
+    printf("        \\_.-'       |__|    `-._ |              '-.|     '-.| |   |\n");
+    printf("                                `'                            '-._|\n");
+    printf("\n");
+    printf("\n");
+
+}
+
 void interfaz()
 {
+	imagen();
+
 	int opcion;
+
 	do{
 		mostrarOpciones();
 		scanf("%i", &opcion);
@@ -73,5 +123,5 @@ void interfaz()
 			return;
 		}
 		else aplicarOpciones(opcion);
-	}while(opcion != 0);
+	} while(opcion != 0);
 }
