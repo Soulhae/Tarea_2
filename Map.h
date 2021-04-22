@@ -1,20 +1,20 @@
 #ifndef MAP_H
 #define MAP_H
 
-typedef struct Map Map;
+typedef struct HashMap HashMap;
 
-Map * createMap(int (*is_equal)(void* key1, void* key2));
+HashMap * createMap(long capacity);
 
-void insertMap(Map * map, void * key, void * value);
+void insertMap(HashMap * table, char * key, void * value);
 
-void * eraseMap(Map * map, void * key);
+void eraseMap(HashMap * table, char * key);
 
-void * searchMap(Map * map, void * key);
+void * searchMap(HashMap * table, char * key);
 
-void * firstMap(Map * map);
+void * firstMap(HashMap * table);
 
-void * nextMap(Map * map);
+void * nextMap(HashMap * table);
 
-void setSortFunction(Map* map, int (*lower_than)(void* key1, void* key2));
+void enlarge(HashMap * map);
 
-#endif /* MAP_h */
+#endif /* MAP_H */
