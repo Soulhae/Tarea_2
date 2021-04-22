@@ -1,3 +1,5 @@
+#include "map.h"
+
 typedef struct Pokemon Pokemon;
 typedef struct Pokedex Pokedex;
 
@@ -18,4 +20,20 @@ struct Pokedex{
  int numeroPokedex;
  char* region;
 };
+
+Pokemon* crearPokemon(char * nombre, char ** tipos, int PC, int PS, char * sexo, char * ePrevia, char * ePosterior, int numPokedex, char * region)
+{
+    Pokemon * aux = (Pokemon *) malloc(sizeof(Pokemon));
+    
+}
+
+void agregarPokemon(HashMap* mapaNombre, HashMap* mapaId, HashMap* mapaTipo, HashMap* mapaRegion, char* nombre, char** tipos, int PC, int PS, char *sexo, char* ePrevia, char* ePosterior, int numPokedex, char* region)
+{
+    Pokemon* nuevo = crearPokemon(nombre, tipos, PC, PS, sexo, ePrevia, ePosterior, numPokedex, region);
+
+	insertMap(mapaNombre, nombre, nuevo);
+	insertMap(mapaId, nombre, nuevo);
+	insertMap(mapaTipo, nombre, nuevo);
+	insertMap(mapaRegion, nombre, nuevo);
+}
 

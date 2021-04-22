@@ -42,10 +42,10 @@ void mostrarOpciones()
 
 void caso1();
 
-void caso2(HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *mapaRegion)
+void caso2(HashMap* mapaNombre, HashMap* mapaId, HashMap* mapaTipo, HashMap* mapaRegion)
 {
 	char nombre[15];
-	char tipo[18][10]; // OJITOOOOOOOOOOOOOOO
+	char tipos[18][10]; // OJITOOOOOOOOOOOOOOO
 	char sexo[3];
 	char evPrevia[15];
 	char evPosterior[15];
@@ -83,16 +83,9 @@ void caso2(HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *map
 	printf("Ingese la region del pokemon: \n");
 	scanf("%s", region);
 
-	Pokemon* nuevo = crearPokemon(nombre, tipo, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region);
-
-	insertMap(mapaNombre, nombre, nuevo);
-	insertMap(mapaId, nombre, nuevo);
-	insertMap(mapaTipo, nombre, nuevo);
-	insertMap(mapaRegion, nombre, nuevo);
-	
 }
 
-void aplicarOpciones(int opcion, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *mapaRegion)
+void aplicarOpciones(int opcion, HashMap* mapaNombre, HashMap* mapaId, HashMap* mapaTipo, HashMap* mapaRegion)
 {
 	switch (opcion)
 	{
