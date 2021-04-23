@@ -83,13 +83,7 @@ void caso2(HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *map
 	printf("Ingese la region del pokemon: \n");
 	scanf("%s", region);
 
-	Pokemon * nuevo = crearPokemon(nombre, tipo, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region);
-	
-	insertMap(mapaNombre, nombre, nuevo);
-	insertMap(mapaId, nombre, nuevo);
-	insertMap(mapaTipo, nombre, nuevo);
-	insertMap(mapaRegion, nombre, nuevo);
-	
+	agregarPokemon(mapaNombre, mapaId, mapaTipo, mapaRegion, nombre, tipo, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region);
 }
 
 void aplicarOpciones(int opcion, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *mapaRegion)
