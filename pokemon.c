@@ -8,8 +8,8 @@ typedef struct Pokemon Pokemon;
 typedef struct Pokedex Pokedex;
 
 struct Pokemon{
- int id;   
- char * nombre;
+ int id;
+ char* nombre;
  int pc;
  int ps;
  char sexo;
@@ -22,13 +22,13 @@ struct Pokedex{
  char * EPrevia;
  char * EPosterior;
  int numeroPokedex;
- char * region;
+ char* region;
 };
 
-Pokemon* crearPokemon(int id, char * nombre, int PC, int PS, char * sexo)
+Pokemon* crearPokemon(int ID, char * nombre, int PC, int PS, char * sexo)
 {
     Pokemon * nuevo = (Pokemon *) malloc(sizeof(Pokemon));
-    nuevo->id = id;
+    nuevo->id = ID;
     strcpy(nuevo->nombre, nombre);
     nuevo->pc = PC;
     nuevo->ps = PS;
@@ -55,9 +55,19 @@ void agregarPokemon(HashMap* mapaNombre, HashMap* mapaId, HashMap* mapaTipo, Has
     Pokedex* aux = crearPokemondex(nombre, tipos, EPrevia, EPosterior, numPokedex, region); //falta la existencia
     //falta crear mapa pokedex y agregarlo a este
 	insertMap(mapaNombre, nombre, nuevo);
-	insertMap(mapaId, ID, nuevo);
-	insertMap(mapaTipo, tipos, nuevo); // OJITO es un webeo
-	insertMap(mapaRegion, region, nuevo);
+	insertMap(mapaId, nombre, nuevo);
+	insertMap(mapaTipo, nombre, nuevo);
+	insertMap(mapaRegion, nombre, nuevo);
+}
+
+void evolucionarPokemon(HashMap* almacenamiento, HashMap* pokedex,int id)
+{
+	calcularEvolucion();
+}
+
+void calcularEvolucion()
+{	
+
 }
 
 void leerArchivo(HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion , char * nombreArchivo){

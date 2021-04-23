@@ -7,7 +7,7 @@
 
 void imagen()
 {
-	printf("                                  ,'\\\n");
+	printf("                                    ,'\\\n");
     printf("    _.----.        ____         ,'  _\\   ___    ___     ____\n");
     printf("_,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.\n");
     printf("\\      __    \\    '-.  | /   `.  ___    |    \\/    |   '-.   \\ |  |\n");
@@ -26,7 +26,7 @@ void imagen()
 
 void mostrarOpciones()
 {
-	printf("Por favor ingrese una opcion\n");
+	printf("opcion\n");
 	printf("1. Importar/Exportar desde un archivo CSV\n");
 	printf("2. Pokemon atrapado\n");
 	printf("3. Evolucionar pokemon\n");
@@ -42,10 +42,10 @@ void mostrarOpciones()
 
 void caso1();
 
-void caso2(HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion)
+void caso2(HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *mapaRegion)
 {
 	char nombre[15];
-	char tipos[18][10]; // OJITOOOOOOOOOOOOOOO
+	char tipo[18][10]; // OJITOOOOOOOOOOOOOOO
 	char sexo[3];
 	char evPrevia[15];
 	char evPosterior[15];
@@ -83,9 +83,16 @@ void caso2(HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap *
 	printf("Ingese la region del pokemon: \n");
 	scanf("%s", region);
 
+	Pokemon * nuevo = crearPokemon(nombre, tipo, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region);
+	
+	insertMap(mapaNombre, nombre, nuevo);
+	insertMap(mapaId, nombre, nuevo);
+	insertMap(mapaTipo, nombre, nuevo);
+	insertMap(mapaRegion, nombre, nuevo);
+	
 }
 
-void aplicarOpciones(int opcion, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion)
+void aplicarOpciones(int opcion, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *mapaRegion)
 {
 	switch (opcion)
 	{
@@ -129,10 +136,12 @@ void interfaz()
 {
 	imagen();
 
-	HashMap * mapaNombre = createMap(20);
-	HashMap * mapaId = createMap(20);
-	HashMap * mapaTipo = createMap(20);
-	HashMap * mapaRegion = createMap(20);
+	HashMap* almacenamiento = createMap(20);
+	HashMap* pokedex = createMap(20);
+	HashMap* mapaNombre = createMap(20);
+	HashMap* mapaId = createMap(20);
+	HashMap* mapaTipo = createMap(20);
+	HashMap* mapaRegion = createMap(20);
 
 	int opcion;
 
