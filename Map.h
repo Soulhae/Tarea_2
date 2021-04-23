@@ -18,6 +18,6 @@ void * firstMap(HashMap * table);
 
 void * nextMap(HashMap * table);
 
-long capacidad(HashMap * map);
+long size(HashMap * map);
 
 #endif /* MAP_H */

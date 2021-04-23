@@ -37,20 +37,21 @@ long hash( char * key, long capacity) {
     return hash%capacity;
 }
 
-int is_equal(void* key1, void* key2){
-    if(key1==NULL || key2==NULL) return 0;
+int is_equal(void * key1, void * key2){
+    if(key1 == NULL || key2 == NULL) return 0;
     if(strcmp((char*)key1,(char*)key2) == 0) return 1;
     return 0;
 }
 
 void enlarge(HashMap * map) {
     enlarge_called = 1; //no borrar (testing purposes)
-    Pair** aux = map->buckets;
+    Pair ** aux = map->buckets;
     long capacidad = map->capacity;
     map->capacity *= 2;
     map->buckets = (Pair **) calloc(map->capacity, sizeof(Pair *));
     map->size = 0;
-    for(int i=0 ; i<capacidad ; i++){
+    int i;
+    for(i = 0 ; i<capacidad ; i++){
       if(aux[i] != NULL){
         insertMap(map, aux[i]->key, aux[i]->value);
       }
@@ -58,22 +59,21 @@ void enlarge(HashMap * map) {
 }
 
 void insertMap(HashMap * map, char * key, void * value) {
-  long posicion = hash(key, map->capacity);
-  Pair* nuevo = createPair(key, value);
-  if((map->size) >= ((map->capacity)*0.7)){
-    enlarge(map);
-  }
-  while(map->buckets[posicion] != NULL){
-    posicion++;
-    if(posicion>=map->capacity){
-      posicion=0;
-    }
-  }
-  if(is_equal(key, map->buckets[posicion]) == 0){
-    map->buckets[posicion] = nuevo;
+    long i = hash(key, map->capacity);
+
+    while(map->buckets[i] != NULL)
+    {
+      i++;
+      if(i >= map->capacity) i = 0;
+    } 
+
+    Pair * nuevo = createPair(key, value);
+    map->buckets[i] = nuevo;
     map->size++;
-    map->current = posicion;
-  }
+
+    if(map->size >= 0.7*map->capacity)
+      enlarge(map);
+
 }
 
 HashMap * createMap(long capacity) {
@@ -82,7 +82,8 @@ HashMap * createMap(long capacity) {
     mapa->size = 0;
     mapa->current = -1;
     mapa->capacity = capacity;
-    for(int i=0 ; i<capacity ; i++){
+    int i;
+    for(i = 0 ; i<capacity ; i++){
       mapa->buckets[i] = NULL;
     }
     return mapa;
@@ -116,7 +117,7 @@ void * searchMap(HashMap * map,  char * key) {
 }
 
 void * firstMap(HashMap * map) {
-    long posicion=0;
+    long posicion = 0;
     while(posicion != map->capacity){
       if(map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL){
         map->current = posicion;
@@ -128,7 +129,7 @@ void * firstMap(HashMap * map) {
 }
 
 void * nextMap(HashMap * map) {
-    long posicion=map->current+1;
+    long posicion = map->current + 1;
     while(posicion != map->capacity){
       if(map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL){
         map->current = posicion;
@@ -139,7 +140,7 @@ void * nextMap(HashMap * map) {
     return NULL;
 }
 
-long capacidad(HashMap * map)
+long size(HashMap * map)
 {
-  return map->capacity;
+  return map->size;
 }
