@@ -16,7 +16,7 @@ struct Pokemon{
 };
 
 struct Pokedex{
- char * nombre;
+ Pokemon *pokemon;
  int existencia;
  char ** tipos;
  char * EPrevia;
@@ -25,39 +25,32 @@ struct Pokedex{
  char* region;
 };
 
-Pokemon* crearPokemon(int ID, char * nombre, int PC, int PS, char * sexo)
+Pokedex* crearPokemon(int ID, char * nombre, char **tipos, int PC, int PS, char * sexo, char *EPrevia, char *EPosterior, int numPokedex, char *region) //falta la existencia
 {
-    Pokemon * nuevo = (Pokemon *) malloc(sizeof(Pokemon));
-    nuevo->id = ID;
-    strcpy(nuevo->nombre, nombre);
-    nuevo->pc = PC;
-    nuevo->ps = PS;
-    strcpy(nuevo->sexo, sexo); 
+    Pokedex * nuevo = (Pokedex *) malloc(sizeof(Pokedex));
+    nuevo->pokemon->id = ID;
+    strcpy(nuevo->pokemon->nombre, nombre);
+    nuevo->tipos = tipos; //como guardamos los tipos?
+    nuevo->pokemon->pc = PC;
+    nuevo->pokemon->ps = PS;
+    strcpy(nuevo->pokemon->sexo, sexo);
+    strcpy(nuevo->EPrevia, EPrevia);
+    strcpy(nuevo->EPosterior, EPosterior);
+    nuevo->numeroPokedex = numPokedex;
+    strcpy(nuevo->region, region); 
     return nuevo;
-}
-
-Pokedex *crearPokemondex(char *nombre, char **tipos, char *EPrevia, char *EPosterior, int numPokedex, char *region){ //falta la existencia
-    Pokedex *aux = (Pokedex *) malloc(sizeof(Pokedex));
-    strcpy(aux->nombre, nombre);
-    aux->tipos = tipos; //como guardamos los tipos?
-    strcpy(aux->EPrevia, EPrevia);
-    strcpy(aux->EPosterior, EPosterior);
-    aux->numeroPokedex = numPokedex;
-    strcpy(aux->region, region);
-
 }
 
 void agregarPokemon(HashMap* mapaNombre, HashMap* mapaId, HashMap* mapaTipo, HashMap* mapaRegion, char* nombre, char** tipos, int PC, int PS, char *sexo, char* EPrevia, char* EPosterior, int numPokedex, char* region)
 {
     ID++;
 
-    Pokemon* nuevo = crearPokemon(ID, nombre, PC, PS, sexo);
-    Pokedex* aux = crearPokemondex(nombre, tipos, EPrevia, EPosterior, numPokedex, region); //falta la existencia
+    Pokemon* nuevo = crearPokemon(ID, nombre, PC, PS, sexo, tipos, EPrevia, EPosterior, numPokedex, region); //falta la existencia
     //falta crear mapa pokedex y agregarlo a este
 	insertMap(mapaNombre, nombre, nuevo);
-	insertMap(mapaId, nombre, nuevo);
+	insertMap(mapaId, ID, nuevo);
 	insertMap(mapaTipo, nombre, nuevo);
-	insertMap(mapaRegion, nombre, nuevo);
+	insertMap(mapaRegion, region, nuevo);
 }
 
 void calcularEvolucion()
@@ -70,14 +63,43 @@ void evolucionarPokemon(HashMap* almacenamiento, HashMap* pokedex,int id)
 	calcularEvolucion();
 }
 
+int contar(int num){
+    int contador=0;
+    while(num>0){
+        num/=10;
+        contador++;
+    }
+    return contador;
+}
+
+void buscarNombre(HashMap* mapaNombre, char *nombre){
+    Pokedex *buscado = searchMap(mapaNombre, nombre);
+    if(!buscado){
+        printf("-----------------------------------------------\n");
+        printf("No se ha podido encontrar el pokemon solicitado\n");
+        printf("-----------------------------------------------\n");
+        return;        
+    }
+    printf("%s %13s %15s %13s %18s\n", "ID", "Nombre", "PC", "PS", "Sexo");
+    if(buscado->existencia > 1){
+        for(int i=0 ; i<buscado->existencia ; i++){
+            printf("%i%*s%*i%*i%*c\n", buscado->pokemon->id, (16-contar(buscado->pokemon->id)), nombre, 16, buscado->pokemon->pc, 14, buscado->pokemon->ps, 17, buscado->pokemon->sexo);
+            buscado=nextMap(mapaNombre);
+        }
+    }else{
+        printf("%i%*s%*i%*i%*c\n", buscado->pokemon->id, (16-contar(buscado->pokemon->id)), nombre, 16, buscado->pokemon->pc, 14, buscado->pokemon->ps, 17, buscado->pokemon->sexo);                
+    }
+    printf("\n");
+}
+
 void leerArchivo(HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion , char * nombreArchivo){
     FILE *archivo;
     Pokemon *nuevo;
     archivo = fopen(nombreArchivo, "r");
     if(!archivo){
-        printf("----------------------------------\n");
-        printf("%10s\n","No se pudo encontrar el archivo");
-        printf("----------------------------------\n");
+        printf("-------------------------------\n");
+        printf("No se pudo encontrar el archivo\n");
+        printf("-------------------------------\n");
     }else{
         char line[150];
         char *token;
