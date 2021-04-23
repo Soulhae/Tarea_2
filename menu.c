@@ -7,7 +7,7 @@
 
 void imagen()
 {
-	printf("                                    ,'\\\n");
+	printf("                                  ,'\\\n");
     printf("    _.----.        ____         ,'  _\\   ___    ___     ____\n");
     printf("_,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.\n");
     printf("\\      __    \\    '-.  | /   `.  ___    |    \\/    |   '-.   \\ |  |\n");
@@ -42,7 +42,7 @@ void mostrarOpciones()
 
 void caso1();
 
-void caso2(HashMap* mapaNombre, HashMap* mapaId, HashMap* mapaTipo, HashMap* mapaRegion)
+void caso2(HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion)
 {
 	char nombre[15];
 	char tipos[18][10]; // OJITOOOOOOOOOOOOOOO
@@ -85,7 +85,7 @@ void caso2(HashMap* mapaNombre, HashMap* mapaId, HashMap* mapaTipo, HashMap* map
 
 }
 
-void aplicarOpciones(int opcion, HashMap* mapaNombre, HashMap* mapaId, HashMap* mapaTipo, HashMap* mapaRegion)
+void aplicarOpciones(int opcion, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion)
 {
 	switch (opcion)
 	{
@@ -129,12 +129,10 @@ void interfaz()
 {
 	imagen();
 
-	HashMap* almacenamiento = createMap(20);
-	HashMap* pokedex = createMap(20);
-	HashMap* mapaNombre = createMap(20);
-	HashMap* mapaId = createMap(20);
-	HashMap* mapaTipo = createMap(20);
-	HashMap* mapaRegion = createMap(20);
+	HashMap * mapaNombre = createMap(20);
+	HashMap * mapaId = createMap(20);
+	HashMap * mapaTipo = createMap(20);
+	HashMap * mapaRegion = createMap(20);
 
 	int opcion;
 
