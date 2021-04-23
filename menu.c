@@ -26,7 +26,7 @@ void imagen()
 
 void mostrarOpciones()
 {
-	printf("opcion\n");
+	printf("Por favor ingrese una opcion\n");
 	printf("1. Importar/Exportar desde un archivo CSV\n");
 	printf("2. Pokemon atrapado\n");
 	printf("3. Evolucionar pokemon\n");
