@@ -1,14 +1,11 @@
-#include<string.h>
 #include "map.h"
-
-int ID = 0;
 
 typedef struct Pokemon Pokemon;
 typedef struct Pokedex Pokedex;
 
 struct Pokemon{
- int id;   
- char * nombre;
+ int id;
+ char* nombre;
  int pc;
  int ps;
  char sexo;
@@ -21,28 +18,32 @@ struct Pokedex{
  char * EPrevia;
  char * EPosterior;
  int numeroPokedex;
- char * region;
+ char* region;
 };
 
-Pokemon* crearPokemon(int id, char * nombre, int PC, int PS, char * sexo)
+Pokemon* crearPokemon(char * nombre, char ** tipos, int PC, int PS, char * sexo, char * ePrevia, char * ePosterior, int numPokedex, char * region)
 {
-    Pokemon * nuevo = (Pokemon *) malloc(sizeof(Pokemon));
-    nuevo->id = id;
-    strcpy(nuevo->nombre, nombre);
-    nuevo->pc = PC;
-    nuevo->ps = PS;
-    strcpy(nuevo->sexo, sexo); 
+    Pokemon * aux = (Pokemon *) malloc(sizeof(Pokemon));
+    
 }
 
 void agregarPokemon(HashMap* mapaNombre, HashMap* mapaId, HashMap* mapaTipo, HashMap* mapaRegion, char* nombre, char** tipos, int PC, int PS, char *sexo, char* ePrevia, char* ePosterior, int numPokedex, char* region)
 {
-    ID++;
-
-    Pokemon* nuevo = crearPokemon(ID, nombre, PC, PS, sexo);
+    Pokemon* nuevo = crearPokemon(nombre, tipos, PC, PS, sexo, ePrevia, ePosterior, numPokedex, region);
 
 	insertMap(mapaNombre, nombre, nuevo);
-	insertMap(mapaId, ID, nuevo);
-	insertMap(mapaTipo, tipos, nuevo); // OJITO es un webeo
-	insertMap(mapaRegion, region, nuevo);
+	insertMap(mapaId, nombre, nuevo);
+	insertMap(mapaTipo, nombre, nuevo);
+	insertMap(mapaRegion, nombre, nuevo);
+}
+
+void evolucionarPokemon(HashMap* almacenamiento, HashMap* pokedex,int id)
+{
+	calcularEvolucion();
+}
+
+void calcularEvolucion()
+{	
+
 }
 
