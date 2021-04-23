@@ -12,9 +12,9 @@ Pokedex *crearPokemondex(char *nombre, char **tipos, char *EPrevia, char *EPoste
 
 void agregarPokemon(HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion, char * nombre, char ** tipos, int PC, int PS, char * sexo, char * EPrevia, char * EPosterior, int numPokedex, char * region);
 
-void evolucionarPokemon();
-
 void calcularEvolucion();
+
+void evolucionarPokemon();
 
 void buscarId(HashMap* mapaId, int id_pokemon);
 

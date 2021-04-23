@@ -60,14 +60,14 @@ void agregarPokemon(HashMap* mapaNombre, HashMap* mapaId, HashMap* mapaTipo, Has
 	insertMap(mapaRegion, nombre, nuevo);
 }
 
-void evolucionarPokemon(HashMap* almacenamiento, HashMap* pokedex,int id)
-{
-	calcularEvolucion();
-}
-
 void calcularEvolucion()
 {	
 
+}
+
+void evolucionarPokemon(HashMap* almacenamiento, HashMap* pokedex,int id)
+{
+	calcularEvolucion();
 }
 
 void leerArchivo(HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion , char * nombreArchivo){
