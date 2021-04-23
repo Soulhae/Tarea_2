@@ -6,18 +6,22 @@ typedef struct Pokemon Pokemon;
 
 typedef struct Pokedex Pokedex;
 
-Pokemon * crearPokemon(int id, char * nombre, int PC, int PS, char * sexo);
+Pokemon* crearPokemon(char* nombre, char** tipos, int PC, int PS, char* sexo, char* ePrevia, char* ePosterior, int numPokedex, char* region);
 
-void agregarPokemon(HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion, char * nombre, char ** tipos, int PC, int PS, char * sexo, char * ePrevia, char * ePosterior, int numPokedex, char * region);
+void agregarPokemon(HashMap* mapaNombre, HashMap* mapaId, HashMap* mapaTipo, HashMap* mapaRegion, char* nombre, char** tipos, int PC, int PS, char *sexo, char* ePrevia, char* ePosterior, int numPokedex, char* region);
 
-void buscarId(HashMap * mapaId, int id_pokemon);
+void evolucionarPokemon();
 
-void buscarTipo(HashMap * mapaTipo);
+void calcularEvolucion();
 
-void buscarNombre(HashMap * mapaNombre);
+void buscarId(HashMap* mapaId, int id_pokemon);
+
+void buscarTipo(HashMap* mapaTipo);
+
+void buscarNombre(HashMap* mapaNombre);
 
 void buscarNombrePokedex();
 
-void leerArchivo(HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion , char * archivo);
+void leerArchivo(HashMap* mapaNombre, HashMap* mapaId, HashMap* mapaTipo, HashMap* mapaRegion , char* archivo);
 
 #endif /* POKEMON_H */
