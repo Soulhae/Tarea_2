@@ -10,9 +10,9 @@ Pokemon* crearPokemon(int ID, char * nombre, char **tipos, int PC, int PS, char 
 
 void agregarPokemon(HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion, char * nombre, char ** tipos, int PC, int PS, char * sexo, char * EPrevia, char * EPosterior, int numPokedex, char * region);
 
-void calcularEvolucion();
+void evolucionarPokemon(HashMap* almacenamiento, HashMap* pokedex,int id);
 
-void evolucionarPokemon();
+void calcularEvolucion(Pokemon * PokemonAlmacenamiento);
 
 void buscarId(HashMap* mapaId, int id_pokemon);
 
