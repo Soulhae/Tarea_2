@@ -42,7 +42,7 @@ void mostrarOpciones()
 
 void caso1();
 
-void caso2(HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *mapaRegion)
+void caso2(HashMap *pokedex, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *mapaRegion)
 {
 	char nombre[15];
 	char tipo[18][10]; // OJITOOOOOOOOOOOOOOO
@@ -83,10 +83,10 @@ void caso2(HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *map
 	printf("Ingese la region del pokemon: \n");
 	scanf("%s", region);
 
-	agregarPokemon(mapaNombre, mapaId, mapaTipo, mapaRegion, nombre, tipo, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region);
+	agregarPokemon(pokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, nombre, tipo, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region);
 }
 
-void aplicarOpciones(int opcion, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *mapaRegion)
+void aplicarOpciones(int opcion, HashMap *pokedex, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *mapaRegion)
 {
 	switch (opcion)
 	{
@@ -94,7 +94,7 @@ void aplicarOpciones(int opcion, HashMap *mapaNombre, HashMap *mapaId, HashMap *
 	
 			break;
 		case 2:
-			caso2(mapaNombre, mapaId, mapaTipo, mapaRegion);
+			caso2(pokedex, mapaNombre, mapaId, mapaTipo, mapaRegion);
 			break;
 		case 3:
 
@@ -148,6 +148,6 @@ void interfaz()
 			printf("Atrapalos ya!\n");
 			return;
 		}
-		else aplicarOpciones(opcion, mapaNombre, mapaId, mapaTipo, mapaRegion);
+		else aplicarOpciones(opcion, pokedex, mapaNombre, mapaId, mapaTipo, mapaRegion);
 	} while(opcion != 0);
 }
