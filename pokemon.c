@@ -2,6 +2,7 @@
 #include<stdio.h>
 #include "map.h"
 
+
 int ID = 0;
 
 typedef struct Pokemon Pokemon;
@@ -53,14 +54,38 @@ void agregarPokemon(HashMap* mapaNombre, HashMap* mapaId, HashMap* mapaTipo, Has
 	insertMap(mapaRegion, region, nuevo);
 }
 
-void calcularEvolucion()
-{	
-
-}
-
 void evolucionarPokemon(HashMap* almacenamiento, HashMap* pokedex,int id)
 {
-	calcularEvolucion();
+	Pokemon * PokemonAlmacenamiento=searchMap(almacenamiento,id);
+	if(PokemonAlmacenamiento==NULL){
+    printf("-----------------------------------------------\n");
+	printf("No se ha encontrado el pokemon en el almacenamiento\n");
+     printf("-----------------------------------------------\n");
+	return 0;	
+	}else
+    {
+        Pokedex * PokemonPokedex=searchMap(pokedex,PokemonAlmacenamiento);
+        if(PokemonPokedex->EPosterior==NULL){
+            printf("-----------------------------------------------\n");
+            printf("El pokemon ingresado no cuenta con evolución\n");
+            printf("-----------------------------------------------\n");
+            return 0;
+        }else
+        {
+        calcularEvolucion(PokemonAlmacenamiento);
+        printf("-----------------------------------------------\n");
+        printf("Felicitaciones su %s a evolucionado a %s!",PokemonAlmacenamiento->nombre,PokemonPokedex->EPosterior);
+        printf("-----------------------------------------------\n");
+        }
+        //Intento 2 que no se subio este miau
+    }
+	
+	
+}
+
+void calcularEvolucion(Pokemon * PokemonAlmacenamiento)
+{
+
 }
 
 int contar(int num){
