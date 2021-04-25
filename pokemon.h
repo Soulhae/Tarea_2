@@ -12,7 +12,7 @@ void agregarPokemon(HashMap *pokedex, HashMap * mapaNombre, HashMap * mapaId, Ha
 
 void evolucionarPokemon(HashMap* almacenamiento, HashMap* pokedex,int id);
 
-void calcularEvolucion(Pokemon * PokemonAlmacenamiento);
+void calcularEvolucion(Pokemon * almacenamiento, Pokedex * pokedex);
 
 void buscarId(HashMap* mapaId, int id_pokemon);
 

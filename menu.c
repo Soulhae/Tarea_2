@@ -67,7 +67,7 @@ void caso2(HashMap *pokedex, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapa
 	printf("Ingrese el sexo del pokemon (M o F): \n");
 	do
 	{
-		scanf("%s", sexo);				//no se detiene?
+		scanf("%s", sexo);				//no se detiene? se detiene si ingresan bien un solo caracter ps, M o F
 	} while((strlen(sexo)) > 1);
 
 	printf("Ingrese su evolucion previa (Si no tiene simplemente escriba: No tiene):\n");

@@ -2,7 +2,6 @@
 #include<stdio.h>
 #include "map.h"
 
-
 int ID = 0;
 
 typedef struct Pokemon Pokemon;
@@ -47,21 +46,23 @@ void agregarPokemon(HashMap *pokedex, HashMap* mapaNombre, HashMap* mapaId, Hash
     ID++;
 
     Pokedex* nuevo = crearPokemon(ID, nombre, PC, PS, sexo, tipos, EPrevia, EPosterior, numPokedex, region); //falta la existencia
-    insertMap(pokedex, nombre, nuevo);
-	insertMap(mapaNombre, nombre, nuevo);
-	insertMap(mapaId, ID, nuevo);
-	insertMap(mapaTipo, nombre, nuevo);
-	insertMap(mapaRegion, region, nuevo);
+    insertMap(pokedex, nombre, nuevo); // normal
+	insertMap(mapaNombre, nombre, nuevo); // lista?
+	insertMap(mapaId, ID, nuevo); // normal
+	insertMap(mapaTipo, nombre, nuevo); // lista
+	insertMap(mapaRegion, region, nuevo); // lista
 }
 
-void calcularEvolucion(Pokemon * PokemonAlmacenamiento)
+void calcularEvolucion(Pokemon * almacenamiento, Pokedex * pokedex)
 {
-
+    strcpy(almacenamiento->nombre, pokedex->pokemon->nombre);
+    almacenamiento->pc *= 1.5;
+    almacenamiento->ps *= 1.25;
 }
 
 void evolucionarPokemon(HashMap* almacenamiento, HashMap* pokedex,int id)
 {
-	Pokedex * PokemonAlmacenamiento=searchMap(almacenamiento,id);
+	Pokedex * PokemonAlmacenamiento = searchMap(almacenamiento,id);
 	if(PokemonAlmacenamiento==NULL){
         printf("-----------------------------------------------\n");
         printf("No se ha encontrado el pokemon en el almacenamiento\n");
@@ -69,36 +70,38 @@ void evolucionarPokemon(HashMap* almacenamiento, HashMap* pokedex,int id)
 	    return;	
 	}else
     {
-        Pokedex * PokemonPokedex=searchMap(pokedex,PokemonAlmacenamiento);
-        if(PokemonPokedex->EPosterior==NULL){
+        Pokedex * PokemonPokedex = searchMap(pokedex, PokemonAlmacenamiento);
+        if(PokemonPokedex->EPosterior == NULL){
             printf("-----------------------------------------------\n");
             printf("El pokemon ingresado no cuenta con evolución\n");
             printf("-----------------------------------------------\n");
             return;
         }else
         {
-        calcularEvolucion(PokemonAlmacenamiento);
-        printf("-----------------------------------------------\n");
-        printf("Felicitaciones su %s a evolucionado a %s!",PokemonAlmacenamiento->pokemon->nombre,PokemonPokedex->EPosterior);
-        printf("-----------------------------------------------\n");
+            calcularEvolucion(PokemonAlmacenamiento, PokemonPokedex);
+            printf("-----------------------------------------------\n");
+            printf("Felicitaciones su %s a evolucionado a %s!", PokemonAlmacenamiento->pokemon->nombre, PokemonPokedex->EPosterior);
+            printf("-----------------------------------------------\n");
+        
+            PokemonPokedex->existencia--;
+            Pokedex * evolucion = searchMap(pokedex, PokemonPokedex->EPosterior);
+            evolucion->existencia++;
         }
         //Intento 2 que no se subio este miau
     }
-	
-	
 }
 
 int contar(int num){
-    int contador=0;
-    while(num>0){
-        num/=10;
+    int contador = 0;
+    while(num > 0){
+        num /= 10;
         contador++;
     }
     return contador;
 }
 
 void buscarNombre(HashMap* mapaNombre, char *nombre){
-    Pokedex *buscado = searchMap(mapaNombre, nombre);
+    Pokedex * buscado = searchMap(mapaNombre, nombre);
     if(!buscado){
         printf("-----------------------------------------------\n");
         printf("No se ha podido encontrar el pokemon solicitado\n");
