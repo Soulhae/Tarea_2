@@ -1,6 +1,7 @@
 #include<string.h>
 #include<stdio.h>
 #include "map.h"
+#include "list.h"
 
 int ID = 0;
 
