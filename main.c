@@ -8,8 +8,6 @@
 int main()
 {
 	interfaz();
-
-	/* hola */
 	
 	return 0;
 }

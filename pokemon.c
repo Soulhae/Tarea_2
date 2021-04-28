@@ -65,7 +65,7 @@ void agregarPokemon(HashMap *pokedex, HashMap* mapaNombre, HashMap* mapaId, Hash
 
     Pokedex* nuevo = crearPokemon(id, nombre, tipos, PC, PS, sexo, EPrevia, EPosterior, numPokedex, region); //falta la existencia
    
-    insertMap(pokedex, nombre, nuevo); // ojitoooo
+    insertMap(pokedex, nombre, nuevo); // ojitoooo, comprobar si ya esta
 	insertMap(mapaId, id, nuevo); // normal
 	insertMap(mapaNumpPokedex, numPokedex, nuevo);
     
@@ -143,7 +143,7 @@ void buscarNombre(HashMap* mapaNombre, char *nombre){
     }
     printf("\n");
 }
-
+/*
 void buscarNombrePokedex(HashMap *pokedex, char *nombre){  //falta ver con distintos tipos de casos
     Pokedex *buscado = searchMap(pokedex, nombre);
     if(!buscado){
@@ -163,7 +163,7 @@ void buscarNombrePokedex(HashMap *pokedex, char *nombre){  //falta ver con disti
         }
     }
     printf("%*s%*s%*i%*s\n", 16, buscado->EPrevia, 25, buscado->EPosterior, 18, buscado->numeroPokedex, 20, buscado->region);
-}
+}*/
 
 void leerArchivo(HashMap *pokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion , char * nombreArchivo){
     FILE *archivo;
