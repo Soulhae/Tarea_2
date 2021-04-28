@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h> // lo usamos????
 #include <string.h>
+#include "list.h"
 #include "map.h"
 #include "menu.h"
 #include "pokemon.h"
+
 
 void imagen()
 {
@@ -45,7 +47,7 @@ void caso1();
 void caso2(HashMap *pokedex, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *mapaRegion)
 {
 	char nombre[15];
-	char tipo[18][10]; // OJITOOOOOOOOOOOOOOO
+	char tipo[20]; 
 	char sexo[3];
 	char evPrevia[15];
 	char evPosterior[15];
@@ -54,9 +56,23 @@ void caso2(HashMap *pokedex, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapa
 
 	printf("Ingrese el nombre del pokemon: \n");
 	scanf("%s", nombre);
-	//getchar(); // ???
 	
-	// SCAN tipo pero no sabemos como aun OJITO 
+	int cont;
+	printf("De cuantos tipos es su pokemon (ingrese un numero entero): \n");
+	scanf("%i", &cont);
+
+	char** arreglo = (char **) malloc(cont * sizeof(char *));
+	for(int i = 0; i < cont; i++)
+	{
+		arreglo[i] = malloc(20 * sizeof(char));
+	}
+	
+	for (int i = 0; i < cont; i++)
+	{
+		printf("Ingrese el tipo de su pokemon: \n");
+		scanf("%s", tipo);
+		strcpy(arreglo[i], tipo);
+	}
 
 	printf("Ingrese los puntos de combate del pokemon: \n");
 	scanf("%i", &PC);
@@ -71,10 +87,10 @@ void caso2(HashMap *pokedex, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapa
 	} while((strlen(sexo)) > 1);
 
 	printf("Ingrese su evolucion previa (Si no tiene simplemente escriba: No tiene):\n");
-	scanf("%s", evPrevia);
+	scanf("%s", evPrevia); // OJITOOO
 
 	printf("Ingrese su evolucion posterior (Si no tiene simplemente escriba: No tiene):\n");
-	scanf("%s", evPosterior);
+	scanf("%s", evPosterior); //OJITOO
 
 	printf("Ingrese el numero en la pokedex del pokemon: \n");
 	// Funcion comparar numero pokedex????
@@ -83,11 +99,17 @@ void caso2(HashMap *pokedex, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapa
 	printf("Ingese la region del pokemon: \n");
 	scanf("%s", region);
 
-	agregarPokemon(pokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, nombre, tipo, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region);
+	agregarPokemon(pokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, nombre, tipo, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region, cont);
 }
 
-void aplicarOpciones(int opcion, HashMap *pokedex, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *mapaRegion)
+void aplicarOpciones(int opcion)
 {
+	HashMap* pokedex = createMap(20);
+	HashMap* mapaNombre = createMap(20); // ??????????????
+	HashMap* mapaId = createMap(20);
+	HashMap* mapaTipo = createMap(20);
+	HashMap* mapaRegion = createMap(15);
+	
 	switch (opcion)
 	{
 		case 1:
@@ -130,13 +152,6 @@ void interfaz()
 {
 	imagen();
 
-	HashMap* almacenamiento = createMap(20);
-	HashMap* pokedex = createMap(20);
-	HashMap* mapaNombre = createMap(20);
-	HashMap* mapaId = createMap(20);
-	HashMap* mapaTipo = createMap(20);
-	HashMap* mapaRegion = createMap(20);
-
 	int opcion;
 
 	do{
@@ -148,6 +163,7 @@ void interfaz()
 			printf("Atrapalos ya!\n");
 			return;
 		}
-		else aplicarOpciones(opcion, pokedex, mapaNombre, mapaId, mapaTipo, mapaRegion);
+		else aplicarOpciones(opcion);
+		
 	} while(opcion != 0);
 }
