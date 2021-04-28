@@ -7,7 +7,9 @@ void mostrarOpciones();
 
 void caso1();
 
-void caso2(HashMap * pokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion);
+void caso2(HashMap * pokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion, HashMap * mapaNumPokedex);
+
+void caso10(HashMap * map);
 
 void aplicarOpciones(int opcion);
 

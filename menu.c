@@ -45,7 +45,7 @@ void mostrarOpciones()
 
 void caso1();
 
-void caso2(HashMap *pokedex, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *mapaRegion)
+void caso2(HashMap *pokedex, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *mapaRegion, HashMap *mapaNumPokedex)
 {
 	char nombre[15];
 	char tipo[20]; 
@@ -54,6 +54,7 @@ void caso2(HashMap *pokedex, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapa
 	char evPosterior[15];
 	int PC, PS, numPokedex;
 	char region[10];
+	List* lista;
 
 	printf("Ingrese el nombre del pokemon: \n");
 	scanf("%s", nombre);
@@ -72,7 +73,7 @@ void caso2(HashMap *pokedex, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapa
 	{
 		printf("Ingrese el tipo de su pokemon: \n");
 		scanf("%s", tipo);
-		strcpy(arreglo[i], tipo);
+		pushBack(lista, tipo);
 	}
 
 	printf("Ingrese los puntos de combate del pokemon: \n");
@@ -100,7 +101,16 @@ void caso2(HashMap *pokedex, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapa
 	printf("Ingese la region del pokemon: \n");
 	scanf("%s", region);
 
-	agregarPokemon(pokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, nombre, arreglo, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region, cont);
+	agregarPokemon(pokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex, nombre, lista, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region);
+}
+
+void caso10(HashMap * map)
+{
+	char * region;
+	printf("Ingrese el nombre de la region que desea buscar: ");
+	scanf("%s", region);
+
+	mostrarRegion(region, map);	
 }
 
 void aplicarOpciones(int opcion)
@@ -110,6 +120,7 @@ void aplicarOpciones(int opcion)
 	HashMap* mapaId = createMap(20);
 	HashMap* mapaTipo = createMap(20);
 	HashMap* mapaRegion = createMap(15);
+	HashMap* mapaNumPokedex = createMap(20);
 	
 	switch (opcion)
 	{
@@ -117,31 +128,31 @@ void aplicarOpciones(int opcion)
 	
 			break;
 		case 2:
-			caso2(pokedex, mapaNombre, mapaId, mapaTipo, mapaRegion);
+			caso2(pokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex);
 			break;
-		case 3:
+		case 3: // evolcuionar
 
 			break;
-		case 4:
+		case 4: // buscar por tipo
 
 			break;
-		case 5:
+		case 5: // buscar por nombre en almacenamiento
 
 			break;
-		case 6:
+		case 6: // buscar por nombre en pokedex
 
 			break;
-		case 7:
+		case 7: // mostrar todos los de la pokedex, ordenados por numpokedex
 
 			break;
-		case 8:
+		case 8: // ordenar lista de pc, y mostrarlos en ese orden
 
 			break;
-		case 9:
+		case 9: // liberar pokemon
 
 			break;
-		case 10:
-
+		case 10: // mostrar por region
+			caso10(mapaRegion);
 			break;
 		default: 
 		
