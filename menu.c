@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h> // lo usamos????
 #include <string.h>
+#include <unistd.h>
 #include "list.h"
 #include "map.h"
 #include "menu.h"
@@ -99,7 +100,7 @@ void caso2(HashMap *pokedex, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapa
 	printf("Ingese la region del pokemon: \n");
 	scanf("%s", region);
 
-	agregarPokemon(pokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, nombre, tipo, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region, cont);
+	agregarPokemon(pokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, nombre, arreglo, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region, cont);
 }
 
 void aplicarOpciones(int opcion)
@@ -159,8 +160,9 @@ void interfaz()
 		scanf("%i", &opcion);
 		if (opcion == 0)
 		{
-			printf("Pokemon\n");
+			printf("\nPokemon\n");
 			printf("Atrapalos ya!\n");
+			sleep(3);
 			return;
 		}
 		else aplicarOpciones(opcion);

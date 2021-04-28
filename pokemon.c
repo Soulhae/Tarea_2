@@ -1,5 +1,6 @@
 #include<string.h>
 #include<stdio.h>
+#include<stdlib.h>
 #include "map.h"
 #include "list.h"
 
@@ -13,7 +14,7 @@ struct Pokemon{
  char* nombre;
  int pc;
  int ps;
- char sexo;
+ char *sexo;
 };
 
 struct Pokedex{
@@ -53,7 +54,7 @@ void agregarLista(HashMap * map, char * key, Pokedex * nuevo)
     else
     {
         List* aux = searchMap(map, key);
-        pushback(aux, nuevo);
+        pushBack(aux, nuevo);
     }
 }
 
@@ -61,7 +62,7 @@ void agregarPokemon(HashMap *pokedex, HashMap* mapaNombre, HashMap* mapaId, Hash
 {
     ID++;
 
-    Pokedex* nuevo = crearPokemon(ID, nombre, PC, PS, sexo, tipos, EPrevia, EPosterior, numPokedex, region); //falta la existencia
+    Pokedex* nuevo = crearPokemon(ID, nombre, tipos, PC, PS, sexo, EPrevia, EPosterior, numPokedex, region); //falta la existencia
    
     insertMap(pokedex, nombre, nuevo); // normal
 	insertMap(mapaId, ID, nuevo); // normal
@@ -78,6 +79,7 @@ void agregarPokemon(HashMap *pokedex, HashMap* mapaNombre, HashMap* mapaId, Hash
 
 void calcularEvolucion(Pokedex * pokemon)
 {
+    strcpy(pokemon->EPrevia, pokemon->pokemon->nombre);
     strcpy(pokemon->pokemon->nombre, pokemon->EPosterior);
     pokemon->pokemon->pc *= 1.5;
     pokemon->pokemon->ps *= 1.25;
@@ -102,7 +104,7 @@ void evolucionarPokemon(HashMap* mapaId, HashMap* pokedex, int id)
         {
             calcularEvolucion(pokemon);
             printf("-----------------------------------------------\n");
-            printf("Felicitaciones su %s a evolucionado a %s!", pokemon->pokemon->nombre, pokemon->EPosterior);
+            printf("Felicitaciones su %s a evolucionado a %s!", pokemon->EPrevia, pokemon->pokemon->nombre);
             printf("-----------------------------------------------\n");
         
             pokemon->existencia--;
@@ -123,7 +125,8 @@ int contar(int num){
 }
 
 void buscarNombre(HashMap* mapaNombre, char *nombre){
-    Pokedex * buscado = searchMap(mapaNombre, nombre);
+    List * buscado = searchMap(mapaNombre, nombre);
+    Pokedex * pokemon = firstList(buscado);
     if(!buscado){
         printf("-----------------------------------------------\n");
         printf("No se ha podido encontrar el pokemon solicitado\n");
@@ -131,13 +134,9 @@ void buscarNombre(HashMap* mapaNombre, char *nombre){
         return;        
     }
     printf("%s %13s %15s %13s %18s\n", "ID", "Nombre", "PC", "PS", "Sexo"); //arreglar esta funcion (que pasa si ingresan mas de 1 pokemon del mismo nombre?)
-    if(buscado->existencia > 1){
-        for(int i=0 ; i<buscado->existencia ; i++){
-            printf("%i%*s%*i%*i%*c\n", buscado->pokemon->id, (16-contar(buscado->pokemon->id)), nombre, 16, buscado->pokemon->pc, 14, buscado->pokemon->ps, 17, buscado->pokemon->sexo);
-            buscado=nextMap(mapaNombre);
-        }
-    }else{
-        printf("%i%*s%*i%*i%*c\n", buscado->pokemon->id, (16-contar(buscado->pokemon->id)), nombre, 16, buscado->pokemon->pc, 14, buscado->pokemon->ps, 17, buscado->pokemon->sexo);                
+    while(pokemon != NULL){
+        printf("%i%*s%*i%*i%*c\n", pokemon->pokemon->id, (16-contar(pokemon->pokemon->id)), nombre, 16, pokemon->pokemon->pc, 14, pokemon->pokemon->ps, 17, pokemon->pokemon->sexo);
+        pokemon = nextList(buscado);
     }
     printf("\n");
 }
@@ -181,7 +180,7 @@ void leerArchivo(HashMap *pokedex, HashMap * mapaNombre, HashMap * mapaId, HashM
         tipos = (char **) malloc(18*sizeof(char *));
         int pc;
         int ps;
-        char sexo;
+        char *sexo;
         char *EPrevia;
         char *EPosterior;
         int numeroPokedex;
