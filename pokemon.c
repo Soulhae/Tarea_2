@@ -77,7 +77,7 @@ void agregarPokemon(HashMap *pokedex, HashMap* mapaNombre, HashMap* mapaId, Hash
 
     //insertMap(pokedex, nombre, nuevo); // ojitoooo
 	insertMap(mapaId, id, nuevo); // normal
-    
+
     agregarLista(mapaRegion, region, nuevo);
     agregarLista(mapaNombre, nombre, nuevo);
 
@@ -239,4 +239,29 @@ void mostrarRegion(char * region, HashMap * map)
         printf("%s, %i, %s, %s, %i, %s\n", pokemon->pokemon->nombre, pokemon->existencia, pokemon->EPrevia, pokemon->EPosterior, pokemon->numeroPokedex, pokemon->region); // lista de tipos
         pokemon = nextList(lista);
     }
+}
+
+void ordenarPorPC(List *list_pokemon){
+
+    Pokemon *prev = firstList(list_pokemon);
+    Pokemon *post;
+    Pokemon *aux;
+    while(prev != NULL){
+        post = nextList(list_pokemon);
+        while(post != NULL){
+            if (prev->pc > post->pc){
+                aux = post;
+                post = prev;
+                prev = aux;
+            }
+        }
+        prev = nextList(list_pokemon);
+    }
+
+    aux = firstList(list_pokemon);
+    while(aux != NULL){
+        printf("%s - %s - %d - %d - %s\n", aux->id, aux->nombre, aux->pc, aux->ps, aux->sexo);
+        aux = nextList(list_pokemon);
+    }
+
 }
