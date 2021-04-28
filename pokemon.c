@@ -64,10 +64,19 @@ void agregarPokemon(HashMap *pokedex, HashMap* mapaNombre, HashMap* mapaId, Hash
     char* id = ID + '0';
 
     Pokedex* nuevo = crearPokemon(id, nombre, tipos, PC, PS, sexo, EPrevia, EPosterior, numPokedex, region); //falta la existencia
-   
-    insertMap(pokedex, nombre, nuevo); // ojitoooo, comprobar si ya esta
+
+    if (searchMap(mapaNombre, nombre) == NULL){
+        nuevo->existencia = 1;
+        insertMap(pokedex, nombre, nuevo);
+        insertMap(mapaNumpPokedex, numPokedex, nuevo);
+    }
+    else{
+        Pokedex *aux = searchMap(pokedex, nombre);
+        aux->existencia ++;
+    }
+
+    //insertMap(pokedex, nombre, nuevo); // ojitoooo
 	insertMap(mapaId, id, nuevo); // normal
-	insertMap(mapaNumpPokedex, numPokedex, nuevo);
     
     agregarLista(mapaRegion, region, nuevo);
     agregarLista(mapaNombre, nombre, nuevo);
@@ -143,8 +152,8 @@ void buscarNombre(HashMap* mapaNombre, char *nombre){
     }
     printf("\n");
 }
-/*
-void buscarNombrePokedex(HashMap *pokedex, char *nombre){  //falta ver con distintos tipos de casos
+
+/*void buscarNombrePokedex(HashMap *pokedex, char *nombre){  //falta ver con distintos tipos de casos
     Pokedex *buscado = searchMap(pokedex, nombre);
     if(!buscado){
         printf("---------------------------------------------------\n");
