@@ -1,18 +1,21 @@
 #ifndef POKEMON_H
 #define POKEMON_H
 #include "map.h"
+#include "list.h"
 
 typedef struct Pokemon Pokemon;
 
 typedef struct Pokedex Pokedex;
 
-Pokemon* crearPokemon(char* ID, char * nombre, char **tipos, int PC, int PS, char * sexo, char *EPrevia, char *EPosterior, int numPokedex, char *region); //falta existencia
+Pokemon* crearPokemon(char* ID, char * nombre, int PC, int PS, char * sexo); //falta existencia
 
-void agregarPokemon(HashMap *pokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion, HashMap * mapNumPokedex, char * nombre, List* tipos, int PC, int PS, char * sexo, char * EPrevia, char * EPosterior, int numPokedex, char * region);
+Pokedex* crearPokedex(char * nombre, List* tipos, char * previa, char * posterior, int num, char * region);
+
+void agregarPokemon(List * almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion, HashMap * mapNumPokedex, char * nombre, List* tipos, int PC, int PS, char * sexo, char * previa, char * posterior, int numPokedex, char * region);
 
 void evolucionarPokemon(HashMap* almacenamiento, HashMap* pokedex,int id);
 
-void calcularEvolucion(Pokemon * almacenamiento, Pokedex * pokedex);
+void calcularEvolucion(Pokemon * pokemon, Pokedex* pokedex);
 
 void buscarId(HashMap* mapaId, int id_pokemon);
 
@@ -24,6 +27,6 @@ void buscarNombre(HashMap* mapaNombre, char *nombre);
 
 void buscarNombrePokedex(HashMap *pokedex, char *nombre);
 
-void leerArchivo(HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion , char * nombreArchivo);
+void leerArchivo(List* almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion , char * nombreArchivo);
 
 #endif /* POKEMON_H */
