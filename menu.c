@@ -102,8 +102,10 @@ void caso2(List * almacenamiento, HashMap *mapaPokedex, HashMap *mapaNombre, Has
 	scanf("%s", region);
 
 	agregarPokemon(almacenamiento, mapaPokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex, nombre, lista, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region);
-	printf("hola mundo");
-    sleep(3);
+}
+void caso5()
+{
+	
 }
 
 void caso10(HashMap * map)

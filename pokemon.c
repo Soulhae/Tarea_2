@@ -11,21 +11,21 @@ typedef struct Pokemon Pokemon;
 typedef struct Pokedex Pokedex;
 
 struct Pokemon{
- char* id;
- char* nombre;
+ char id[10];
+ char nombre[20];
  int pc;
  int ps;
- char *sexo;
+ char sexo[10];
 };
 
 struct Pokedex{
- char * nombre;
+ char nombre[20];
  int existencia;
  List* tipos;
- char * EPrevia;
- char * EPosterior;
- char * numeroPokedex;
- char* region;
+ char EPrevia[20];
+ char EPosterior[20];
+ char numeroPokedex[10];
+ char region[15];
 };
 
 Pokemon* crearPokemon(char* ID, char * nombre, int PC, int PS, char *sexo) //falta la existencia
@@ -36,7 +36,7 @@ Pokemon* crearPokemon(char* ID, char * nombre, int PC, int PS, char *sexo) //fal
     strcpy(nuevo->nombre, nombre);
     nuevo->pc = PC;
     nuevo->ps = PS;
-    nuevo->sexo = sexo;
+    strcpy(nuevo->sexo, sexo);
    
     return nuevo;
 }
@@ -44,29 +44,13 @@ Pokemon* crearPokemon(char* ID, char * nombre, int PC, int PS, char *sexo) //fal
 Pokedex* crearPokedex(char * nombre, List* tipos, char * previa, char * posterior, char * num, char * region)
 {
     Pokedex * nuevo = (Pokedex *) malloc(sizeof(Pokedex));
-    printf("a");
-        sleep(2);
-    strcpy(nuevo->numeroPokedex, num);
-    printf("g");
-        sleep(2);
-    nuevo->tipos = tipos;
-    printf("asdsada");
-        sleep(2);
-    strcpy(nuevo->EPrevia, previa);
-    printf("e");
-        sleep(2);
-    strcpy(nuevo->EPosterior, posterior);
-    printf("f");
-        sleep(2);
-    strcpy(nuevo->region, region);
-    printf("h");
-        sleep(2);  
+    
     strcpy(nuevo->nombre, nombre);
-    printf("b");
-        sleep(2);
-    nuevo->existencia = 1;
-    printf("c");
-        sleep(2);
+    nuevo->tipos = tipos;
+    strcpy(nuevo->EPrevia, previa);
+    strcpy(nuevo->EPosterior, posterior);
+    strcpy(nuevo->numeroPokedex, num);
+    strcpy(nuevo->region, region);
 
     return nuevo;
 }
@@ -95,22 +79,12 @@ void agregarPokemon(List* almacenamiento, HashMap * mapaPokedex, HashMap* mapaNo
     sprintf(numPoke, "%i", numPokedex);
 
     Pokemon* pokemon = crearPokemon(auxId, nombre, PC, PS, sexo);
-    printf("alo");
-    sleep(5);
+    pushBack(almacenamiento, pokemon);
     
     if (searchMap(mapaPokedex, nombre) == NULL){
-        printf("1\n");
-        sleep(2);
-        sleep(10);
         Pokedex* pokedex = crearPokedex(nombre, tipos, previa, posterior, numPoke, region);
-        printf("2");
-        sleep(2);
         insertMap(mapaPokedex, nombre, pokedex);
-        printf("3");
-        sleep(2);
         insertMap(mapaNumpPokedex, numPoke, pokedex);
-        printf("4");
-        sleep(2);
     }
     else{
         Pokedex *aux = searchMap(mapaPokedex, nombre);
