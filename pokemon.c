@@ -207,6 +207,30 @@ void buscarNombre(HashMap* mapaNombre, char *nombre){
     printf("%*s%*s%*i%*s\n", 16, buscado->EPrevia, 25, buscado->EPosterior, 18, buscado->numeroPokedex, 20, buscado->region);
 }*/
 
+// intente arregloarlo con los cambios actuales a si que hay que revisarlo
+/*void buscarNombrePokedex(HashMap *pokedex, char *nombre){
+
+    Pokedex *buscado = searchMap(pokedex, nombre);
+    if(!buscado){
+        printf("---------------------------------------------------\n");
+        printf("El pokemon solicitado no se encuentra en la pokedex\n");
+        printf("---------------------------------------------------\n");
+        return;
+    }
+    printf("%s %15s %10s %22s %25s %20s %15s\n", "Nombre", "Existencia", "Tipos", "Ev. Previa", "Ev. Posterior", "N° Pokedex", "Region");
+    printf("%s%*i ", buscado->nombre, (15-strlen(buscado->nombre)), buscado->existencia);
+
+    // Imprimir tipos
+    Pokedex *iterador = firstMap(buscado->tipos);
+    while (iterador != NULL){
+        printf("%s", iterador->tipos);
+        iterador = nextList(buscado->tipos);
+    }
+
+    printf("%*s%*s%*i%*s\n", 16, buscado->EPrevia, 25, buscado->EPosterior, 18, buscado->numeroPokedex, 20, buscado->region);
+
+}*/
+
 void leerArchivo(List* almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion , HashMap * mapaNumPokedex, char * nombreArchivo){
     FILE *archivo;
     Pokemon *nuevo;
