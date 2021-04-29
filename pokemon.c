@@ -150,7 +150,7 @@ void buscarNombre(HashMap* mapaNombre, char *nombre){ // debugear para ver donde
         printf("-----------------------------------------------\n");
         printf("No se ha podido encontrar el pokemon solicitado\n");
         printf("-----------------------------------------------\n");
-        return;        
+        return;
     }
     printf("%s %13s %15s %13s %18s\n", "ID", "Nombre", "PC", "PS", "Sexo");
     while(pokemon != NULL){
@@ -326,9 +326,8 @@ void liberarPokemon(char *id, HashMap * mapaPokedex, HashMap * mapaNombre, HashM
     eraseMap(mapaNombre, pokemon->nombre);
     eraseMap(mapaPokedex, pokedex->nombre);
     eraseMap(mapaNumPokedex, pokedex->numeroPokedex);
-
-    char *aux = pokedex->tipos;
-    List *list_tipos = searchMap(mapaTipo, aux); // error
+    
+    List *list_tipos = pokedex->tipos;
     Pokemon *iterador = firstList(list_tipos);
     while(iterador != NULL){
         if ( strcmp(iterador->id, pokemon->id) == 0 ){
@@ -345,5 +344,4 @@ void liberarPokemon(char *id, HashMap * mapaPokedex, HashMap * mapaNombre, HashM
         }
         iterador = nextList(list_region);
     }
-
 }
