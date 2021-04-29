@@ -253,3 +253,42 @@ void leerArchivo(List* almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombr
     }
 }
 
+void mostrarRegion(char * region, HashMap * map)
+{
+    List* lista = searchMap(map, region);
+    Pokedex* pokemon = firstList(lista);
+    
+    printf("Tus pokemones de %s son: \n", region);
+    printf("Nombre Existencia Tipos Ev. Previa Ev. Posterior Numero pokedex region\n");
+    
+    while(pokemon != NULL)
+    {
+        printf("%s, %i, %s, %s, %i, %s\n", pokemon->nombre, pokemon->existencia, pokemon->EPrevia, pokemon->EPosterior, pokemon->numeroPokedex, pokemon->region); // lista de tipos
+        pokemon = nextList(lista);
+    }
+}
+
+void ordenarPorPC(List *list_pokemon){
+
+    Pokemon *prev = firstList(list_pokemon);
+    Pokemon *post;
+    Pokemon *aux;
+    while(prev != NULL){
+        post = nextList(list_pokemon);
+        while(post != NULL){
+            if (prev->pc > post->pc){
+                aux = post;
+                post = prev;
+                prev = aux;
+            }
+        }
+        prev = nextList(list_pokemon);
+    }
+
+    aux = firstList(list_pokemon);
+    while(aux != NULL){
+        printf("%s - %s - %d - %d - %s\n", aux->id, aux->nombre, aux->pc, aux->ps, aux->sexo);
+        aux = nextList(list_pokemon);
+    }
+
+}
