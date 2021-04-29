@@ -35,4 +35,6 @@ void mostrarRegion(char * region, HashMap * map);
 
 void ordenarPorPC(List *list_pokemon);
 
+void liberarPokemon(char *id, HashMap * mapaPokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion, HashMap * mapaNumPokedex);
+
 #endif /* POKEMON_H */

@@ -255,6 +255,11 @@ void leerArchivo(List* almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombr
             agregarPokemon(almacenamiento, mapaPokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex, nombre, tipos, pc, ps, sexo, EPrevia, EPosterior, numeroPokedex, region); //falta pasar la existencia
 
         }
+
+        if (fclose(archivo) == EOF){
+            printf("El archivo no se pudo cerrar correctamente.");
+        }
+
     }
 }
 
@@ -294,6 +299,38 @@ void ordenarPorPC(List *list_pokemon){
     while(aux != NULL){
         printf("%s - %s - %d - %d - %s\n", aux->id, aux->nombre, aux->pc, aux->ps, aux->sexo);
         aux = nextList(list_pokemon);
+    }
+
+}
+
+/* ojito ver detalles no sé si funcione */
+void liberarPokemon(char *id, HashMap * mapaPokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion, HashMap * mapaNumPokedex){
+
+    Pokemon *pokemon = searchMap(mapaId, id);
+    Pokedex *pokedex = searchMap(mapaPokedex, pokemon->nombre);
+    pokedex->existencia --;
+
+    eraseMap(mapaId, id);
+    eraseMap(mapaNombre, pokemon->nombre);
+    eraseMap(mapaPokedex, pokedex->nombre);
+    eraseMap(mapaNumPokedex, pokedex->numeroPokedex);
+
+    List *list_tipos = searchMap(mapaTipo, pokedex->tipos);
+    Pokemon *iterador = firstList(list_tipos);
+    while(iterador != NULL){
+        if ( strcmp(iterador->id, pokemon->id) == 0 ){
+            popCurrent(list_tipos);
+        }
+        iterador = next(list_tipos);
+    }
+
+    List *list_region = searchMap(mapaRegion, pokedex->region);
+    iterador = firstList(list_region);
+    while(iterador != NULL){
+        if ( strcmp(iterador->id, pokemon->id) == 0 ){
+            popCurrent(list_region);
+        }
+        iterador = nextList(list_region);
     }
 
 }
