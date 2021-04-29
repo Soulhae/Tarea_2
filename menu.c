@@ -47,8 +47,7 @@ void caso1();
 
 void caso2(List * almacenamiento, HashMap *mapaPokedex, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *mapaRegion, HashMap *mapaNumPokedex)
 {
-	char nombre[15];
-	char tipo[20]; 
+	char nombre[15]; 
 	char sexo[10];
 	char evPrevia[15];
 	char evPosterior[15];
@@ -66,18 +65,15 @@ void caso2(List * almacenamiento, HashMap *mapaPokedex, HashMap *mapaNombre, Has
 	char *aux;
 	for (int i = 0; i < cont; i++)
 	{
+		char* tipo;
+		tipo = (char*)malloc(10*sizeof(char)); 
 		printf("Ingrese el tipo de su pokemon: ");
 		scanf("%s", tipo);
-		getchar();
 		pushBack(lista, tipo);
-
-		aux = firstList(lista);
-		printf("%s\n", aux);
 	}
-	
 	aux = firstList(lista);
-	while(aux){
-		puts(aux);
+	while(aux!=NULL){
+		printf("%s\n", aux);
 		aux = nextList(lista);
 	}
 
