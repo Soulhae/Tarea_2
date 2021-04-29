@@ -28,5 +28,3 @@ void * popCurrent(List * list);
 void cleanList(List * list);
 
 #endif /* LIST_H */
-
-

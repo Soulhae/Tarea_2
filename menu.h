@@ -1,5 +1,7 @@
 #ifndef MENU_H
 #define MENU_H
+#include "list.h"
+#include "map.h"
 
 void imagen();
 

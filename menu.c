@@ -10,7 +10,7 @@
 
 void imagen()
 {
-	printf("                                    ,'\\\n");
+	printf("                                  ,'\\\n");
     printf("    _.----.        ____         ,'  _\\   ___    ___     ____\n");
     printf("_,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.\n");
     printf("\\      __    \\    '-.  | /   `.  ___    |    \\/    |   '-.   \\ |  |\n");
@@ -29,7 +29,7 @@ void imagen()
 
 void mostrarOpciones()
 {
-	printf("opcion\n");
+	printf("Por favor ingrese una opcion (Ingrese '0' para salir)\n");
 	printf("1. Importar/Exportar desde un archivo CSV\n");
 	printf("2. Pokemon atrapado\n");
 	printf("3. Evolucionar pokemon\n");
@@ -49,12 +49,12 @@ void caso2(List * almacenamiento, HashMap *mapaPokedex, HashMap *mapaNombre, Has
 {
 	char nombre[15];
 	char tipo[20]; 
-	char sexo[3];
+	char sexo[10];
 	char evPrevia[15];
 	char evPosterior[15];
 	int PC, PS, numPokedex;
 	char region[10];
-	List* lista;
+	List* lista = createList();
 
 	printf("Ingrese el nombre del pokemon: \n");
 	scanf("%s", nombre);
@@ -62,18 +62,17 @@ void caso2(List * almacenamiento, HashMap *mapaPokedex, HashMap *mapaNombre, Has
 	int cont;
 	printf("De cuantos tipos es su pokemon (ingrese un numero entero): \n");
 	scanf("%i", &cont);
-
-	char** arreglo = (char **) malloc(cont * sizeof(char *));
-	for(int i = 0; i < cont; i++)
-	{
-		arreglo[i] = malloc(20 * sizeof(char));
-	}
 	
 	for (int i = 0; i < cont; i++)
 	{
 		printf("Ingrese el tipo de su pokemon: \n");
 		scanf("%s", tipo);
 		pushBack(lista, tipo);
+	}
+	char *aux = firstList(lista);
+	while(aux){
+		printf("%s", aux);
+		aux = nextList(lista);
 	}
 
 	printf("Ingrese los puntos de combate del pokemon: \n");
@@ -82,11 +81,8 @@ void caso2(List * almacenamiento, HashMap *mapaPokedex, HashMap *mapaNombre, Has
 	printf("Ingrese los puntos de salud del pokemon: \n");
 	scanf("%i", &PS);
 
-	printf("Ingrese el sexo del pokemon (M o F): \n");
-	do
-	{
-		scanf("%s", sexo);				//no se detiene? se detiene si ingresan bien un solo caracter ps, M o F
-	} while((strlen(sexo)) > 1);
+	printf("Ingrese el sexo del pokemon (Macho o Hembra): \n");
+	scanf("%s", sexo);
 
 	printf("Ingrese su evolucion previa (Si no tiene simplemente escriba: No tiene):\n");
 	scanf("%s", evPrevia); // OJITOOO
@@ -98,10 +94,12 @@ void caso2(List * almacenamiento, HashMap *mapaPokedex, HashMap *mapaNombre, Has
 	// Funcion comparar numero pokedex????
 	scanf("%i", &numPokedex);
 
-	printf("Ingese la region del pokemon: \n");
+	printf("Ingrese la region del pokemon: \n");
 	scanf("%s", region);
 
 	agregarPokemon(almacenamiento, mapaPokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex, nombre, lista, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region);
+	printf("hola mundo");
+    sleep(3);
 }
 
 void caso10(HashMap * map)
@@ -115,9 +113,9 @@ void caso10(HashMap * map)
 
 void aplicarOpciones(int opcion)
 {
-	List* almacenamiento;
-	HashMap* pokedex = createMap(20);
-	HashMap* mapaNombre = createMap(20); // ??????????????
+	List* almacenamiento = createList();
+	HashMap* mapaPokedex = createMap(20);
+	HashMap* mapaNombre = createMap(20);
 	HashMap* mapaId = createMap(20);
 	HashMap* mapaTipo = createMap(20);
 	HashMap* mapaRegion = createMap(15);
@@ -129,7 +127,7 @@ void aplicarOpciones(int opcion)
 	
 			break;
 		case 2:
-			caso2(almacenamiento, pokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex);
+			caso2(almacenamiento, mapaPokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex);
 			break;
 		case 3: // evolcuionar
 

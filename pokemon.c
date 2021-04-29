@@ -1,6 +1,7 @@
 #include<string.h>
 #include<stdio.h>
 #include<stdlib.h>
+#include <unistd.h>
 #include "map.h"
 #include "list.h"
 
@@ -18,16 +19,16 @@ struct Pokemon{
 };
 
 struct Pokedex{
- char * nombre; // VA A EXPLOTAR
+ char * nombre;
  int existencia;
- List* tipos; // lista???
+ List* tipos;
  char * EPrevia;
  char * EPosterior;
  int numeroPokedex;
  char* region;
 };
 
-Pokemon* crearPokemon(char* ID, char * nombre, int PC, int PS, char * sexo) //falta la existencia
+Pokemon* crearPokemon(char* ID, char * nombre, int PC, int PS, char *sexo) //falta la existencia
 {
     Pokemon * nuevo = (Pokemon *) malloc(sizeof(Pokemon));
    
@@ -35,7 +36,7 @@ Pokemon* crearPokemon(char* ID, char * nombre, int PC, int PS, char * sexo) //fa
     strcpy(nuevo->nombre, nombre);
     nuevo->pc = PC;
     nuevo->ps = PS;
-    strcpy(nuevo->sexo, sexo);
+    nuevo->sexo = sexo;
    
     return nuevo;
 }
@@ -43,19 +44,34 @@ Pokemon* crearPokemon(char* ID, char * nombre, int PC, int PS, char * sexo) //fa
 Pokedex* crearPokedex(char * nombre, List* tipos, char * previa, char * posterior, int num, char * region)
 {
     Pokedex * nuevo = (Pokedex *) malloc(sizeof(Pokedex));
-
-    strcpy(nuevo->nombre, nombre);
-    nuevo->existencia = 1;
-    nuevo->tipos = tipos;
-    nuevo->EPrevia = previa;
-    nuevo->EPosterior = posterior;
+    printf("a");
+        sleep(2);
     nuevo->numeroPokedex = num;
-    nuevo->region = region;
+    printf("g");
+        sleep(2);
+    nuevo->tipos = tipos;
+    printf("asdsada");
+        sleep(2);
+    strcpy(nuevo->EPrevia, previa);
+    printf("e");
+        sleep(2);
+    strcpy(nuevo->EPosterior, posterior);
+    printf("f");
+        sleep(2);
+    strcpy(nuevo->region, region);
+    printf("h");
+        sleep(2);  
+    strcpy(nuevo->nombre, nombre);
+    printf("b");
+        sleep(2);
+    nuevo->existencia = 1;
+    printf("c");
+        sleep(2);
 
     return nuevo;
 }
 
-void agregarLista(HashMap * map, char * key, Pokedex * nuevo)
+void agregarLista(HashMap * map, char * key, Pokemon * nuevo)
 {
     if(searchMap(map, key) == NULL)
     {
@@ -73,28 +89,42 @@ void agregarLista(HashMap * map, char * key, Pokedex * nuevo)
 void agregarPokemon(List* almacenamiento, HashMap * mapaPokedex, HashMap* mapaNombre, HashMap* mapaId, HashMap* mapaTipo, HashMap* mapaRegion, HashMap* mapaNumpPokedex, char* nombre, List* tipos, int PC, int PS, char *sexo, char* previa, char* posterior, int numPokedex, char* region)
 {
     ID++;
-    char* id = ID + '0';
+    char auxId[4];
+    sprintf(auxId, "%i", ID); 
+    char numPoke[4];
+    sprintf(numPoke, "%i", numPokedex);
 
-    Pokemon* pokemon = crearPokemon(id, nombre, PC, PS, sexo);
+    Pokemon* pokemon = crearPokemon(auxId, nombre, PC, PS, sexo);
+    printf("alo");
+    sleep(5);
     
-    if (searchMap(mapaPokedex, nombre) == NULL){ //ojitoo
+    if (searchMap(mapaPokedex, nombre) == NULL){
+        printf("1\n");
+        sleep(2);
+        sleep(10);
         Pokedex* pokedex = crearPokedex(nombre, tipos, previa, posterior, numPokedex, region);
+        printf("2");
+        sleep(2);
         insertMap(mapaPokedex, nombre, pokedex);
-        insertMap(mapaNumpPokedex, numPokedex, pokedex);
+        printf("3");
+        sleep(2);
+        insertMap(mapaNumpPokedex, numPoke, pokedex);
+        printf("4");
+        sleep(2);
     }
     else{
         Pokedex *aux = searchMap(mapaPokedex, nombre);
         aux->existencia ++;
     }
 
-	insertMap(mapaId, id, pokemon); 
+	insertMap(mapaId, auxId, pokemon); 
     
     agregarLista(mapaRegion, region, pokemon);
     agregarLista(mapaNombre, nombre, pokemon);
 
     char * tipo = firstList(tipos);
     while(tipo != NULL)
-    {
+    {                                                           //arreglar guardar tipos en menu.c
         agregarLista(mapaTipo, tipo, pokemon);
         tipo = nextList(tipos);
     }
@@ -109,7 +139,8 @@ void calcularEvolucion(Pokemon * pokemon, Pokedex* pokedex)
 
 void evolucionarPokemon(HashMap* mapaId, HashMap* mapaPokedex, int id)
 {
-	Pokemon * pokemon = searchMap(mapaId, id);
+    char *auxId = (char *) (id + '0');  //cambiar por sprintf
+	Pokemon * pokemon = searchMap(mapaId, auxId);
     Pokedex* pokedex = searchMap(mapaPokedex, pokemon->nombre);
 
 	if(pokemon == NULL){
@@ -129,23 +160,13 @@ void evolucionarPokemon(HashMap* mapaId, HashMap* mapaPokedex, int id)
             pokedex->existencia --;
             calcularEvolucion(pokemon, pokedex);
             printf("-----------------------------------------------\n");
-            printf("Felicitaciones su %s a evolucionado a %s!", pokedex->EPrevia, pokemon->nombre);
+            printf("Felicitaciones su %s a evolucionado a %s!", pokedex->nombre, pokemon->nombre);
             printf("-----------------------------------------------\n");
         
-            Pokedex * evolucion = searchMap(mapaPokedex, pokemon);
+            Pokedex * evolucion = searchMap(mapaPokedex, pokemon->nombre);
             evolucion->existencia++;
         }
-        //Intento 2 que no se subio este miau
     }
-}
-
-int contar(int num){
-    int contador = 0;
-    while(num > 0){
-        num /= 10;
-        contador++;
-    }
-    return contador;
 }
 
 void buscarNombre(HashMap* mapaNombre, char *nombre){
@@ -157,9 +178,9 @@ void buscarNombre(HashMap* mapaNombre, char *nombre){
         printf("-----------------------------------------------\n");
         return;        
     }
-    printf("%s %13s %15s %13s %18s\n", "ID", "Nombre", "PC", "PS", "Sexo"); //arreglar esta funcion (que pasa si ingresan mas de 1 pokemon del mismo nombre?)
+    printf("%s %13s %15s %13s %18s\n", "ID", "Nombre", "PC", "PS", "Sexo");
     while(pokemon != NULL){
-        printf("%i%*s%*i%*i%*c\n", pokemon->id, (16-contar(pokemon->id)), nombre, 16, pokemon->pc, 14, pokemon->ps, 17, pokemon->sexo);
+        printf("%i%*s%*i%*i%*c\n", pokemon->id, (16-strlen(pokemon->id)), nombre, 16, pokemon->pc, 14, pokemon->ps, 17, pokemon->sexo);
         pokemon = nextList(buscado);
     }
     printf("\n");
@@ -186,21 +207,6 @@ void buscarNombre(HashMap* mapaNombre, char *nombre){
     printf("%*s%*s%*i%*s\n", 16, buscado->EPrevia, 25, buscado->EPosterior, 18, buscado->numeroPokedex, 20, buscado->region);
 }*/
 
-void mostrarRegion(char * region, HashMap * map)
-{
-    List* lista = searchMap(map, region);
-    Pokedex* pokemon = firstList(lista);
-    
-    printf("Tus pokemones de %s son: \n", region);
-    printf("Nombre Existencia Tipos Ev. Previa Ev. Posterior Numero pokedex region\n");
-    
-    while(pokemon != NULL)
-    {
-        printf("%s, %i, %s, %s, %i, %s\n", pokemon->nombre, pokemon->existencia, pokemon->EPrevia, pokemon->EPosterior, pokemon->numeroPokedex, pokemon->region); // lista de tipos
-        pokemon = nextList(lista);
-    }
-}
-
 void leerArchivo(List* almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion , HashMap * mapaNumPokedex, char * nombreArchivo){
     FILE *archivo;
     Pokemon *nuevo;
@@ -214,7 +220,7 @@ void leerArchivo(List* almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombr
         char *token;
         int id;
         char *nombre;
-        int existencia; //como verificamos si ya ingresamos este pokemon?
+        int existencia;
         List* tipos;
         char * tipo;
         int pc;
@@ -224,7 +230,6 @@ void leerArchivo(List* almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombr
         char *EPosterior;
         int numeroPokedex;
         char *region;
-        int cont; // como lo hacemos?
 
         fgets(line,150,archivo); //elimina primera linea
         while(fgets(line,150,archivo)){
@@ -232,7 +237,7 @@ void leerArchivo(List* almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombr
             id = atoi(token);
             token = strtok(NULL,",");
             nombre = token;
-            //duda cantidad de tipos, como sabemos cuando parar? lo preguntamos?
+            //duda cantidad de tipos, como sabemos cuando parar? si hay mas de un tipo tiene comillas
             token = strtok(NULL,",");
             pc = atoi(token);
             token = strtok(NULL,",");

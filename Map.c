@@ -7,7 +7,6 @@
 
 typedef struct Pair Pair;
 typedef struct HashMap HashMap;
-int enlarge_called=0;
 
 struct Pair {
      char * key;
@@ -44,7 +43,6 @@ int is_equal(void * key1, void * key2){
 }
 
 void enlarge(HashMap * map) {
-    enlarge_called = 1; //no borrar (testing purposes)
     Pair ** aux = map->buckets;
     long capacidad = map->capacity;
     map->capacity *= 2;
