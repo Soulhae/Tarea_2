@@ -150,7 +150,7 @@ void evolucionarPokemon(HashMap* mapaId, HashMap* mapaPokedex, int id)
 	    return;	
 	}else
     {
-        if(pokedex->EPosterior == NULL){
+        if(strcmp(pokedex->EPosterior,"No tiene" || "no tiene")!=0){
             printf("-----------------------------------------------\n");
             printf("El pokemon ingresado no cuenta con evolución\n");
             printf("-----------------------------------------------\n");
