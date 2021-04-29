@@ -24,7 +24,7 @@ struct Pokedex{
  List* tipos;
  char * EPrevia;
  char * EPosterior;
- int numeroPokedex;
+ char * numeroPokedex;
  char* region;
 };
 
@@ -41,12 +41,12 @@ Pokemon* crearPokemon(char* ID, char * nombre, int PC, int PS, char *sexo) //fal
     return nuevo;
 }
 
-Pokedex* crearPokedex(char * nombre, List* tipos, char * previa, char * posterior, int num, char * region)
+Pokedex* crearPokedex(char * nombre, List* tipos, char * previa, char * posterior, char * num, char * region)
 {
     Pokedex * nuevo = (Pokedex *) malloc(sizeof(Pokedex));
     printf("a");
         sleep(2);
-    nuevo->numeroPokedex = num;
+    strcpy(nuevo->numeroPokedex, num);
     printf("g");
         sleep(2);
     nuevo->tipos = tipos;
@@ -102,7 +102,7 @@ void agregarPokemon(List* almacenamiento, HashMap * mapaPokedex, HashMap* mapaNo
         printf("1\n");
         sleep(2);
         sleep(10);
-        Pokedex* pokedex = crearPokedex(nombre, tipos, previa, posterior, numPokedex, region);
+        Pokedex* pokedex = crearPokedex(nombre, tipos, previa, posterior, numPoke, region);
         printf("2");
         sleep(2);
         insertMap(mapaPokedex, nombre, pokedex);
@@ -245,7 +245,7 @@ void leerArchivo(List* almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombr
         int id;
         char *nombre;
         int existencia;
-        List* tipos;
+        List* tipos = createList();
         char * tipo;
         int pc;
         int ps;
@@ -254,8 +254,6 @@ void leerArchivo(List* almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombr
         char *EPosterior;
         int numeroPokedex;
         char *region;
-
-        List *list_tipos = createList();
 
         fgets(line,150,archivo); //elimina primera linea
         while(fgets(line,150,archivo)){
@@ -266,7 +264,7 @@ void leerArchivo(List* almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombr
 
             //duda cantidad de tipos, como sabemos cuando parar? si hay mas de un tipo tiene comillas
             token = strtok(NULL, "\"");
-            strcpy(tipos, token);
+            strcpy(tipo, token);
 
             token = strtok(NULL,",");
             pc = atoi(token);
@@ -284,15 +282,15 @@ void leerArchivo(List* almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombr
             strcpy(region, token);
 
             /* separar por tipos, hay que probar si funciona sino intentar de otra forma ><< */
-            token = strtok(tipos, ", ");
-            pushBack(list_tipos, token);
+            token = strtok(tipo, ", ");
+            pushBack(tipos, token);
             token = strtok(NULL, ", ");
-            if (token != NULL){
-                pushBack(list_tipos, token);
+            while (token != NULL){
+                pushBack(tipos, token);
                 token = strtok(NULL, ", ");
             }
 
-            agregarPokemon(almacenamiento, mapaPokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex, nombre, list_tipos, pc, ps, sexo, EPrevia, EPosterior, numeroPokedex, region); //falta pasar la existencia
+            agregarPokemon(almacenamiento, mapaPokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex, nombre, tipos, pc, ps, sexo, EPrevia, EPosterior, numeroPokedex, region); //falta pasar la existencia
 
         }
 
@@ -355,13 +353,14 @@ void liberarPokemon(char *id, HashMap * mapaPokedex, HashMap * mapaNombre, HashM
     eraseMap(mapaPokedex, pokedex->nombre);
     eraseMap(mapaNumPokedex, pokedex->numeroPokedex);
 
-    List *list_tipos = searchMap(mapaTipo, pokedex->tipos);
+    char *aux = pokedex->tipos;
+    List *list_tipos = searchMap(mapaTipo, aux); // error
     Pokemon *iterador = firstList(list_tipos);
     while(iterador != NULL){
         if ( strcmp(iterador->id, pokemon->id) == 0 ){
             popCurrent(list_tipos);
         }
-        iterador = next(list_tipos);
+        iterador = nextList(list_tipos);
     }
 
     List *list_region = searchMap(mapaRegion, pokedex->region);

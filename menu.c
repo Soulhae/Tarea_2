@@ -56,22 +56,28 @@ void caso2(List * almacenamiento, HashMap *mapaPokedex, HashMap *mapaNombre, Has
 	char region[10];
 	List* lista = createList();
 
-	printf("Ingrese el nombre del pokemon: \n");
+	printf("Ingrese el nombre del pokemon: ");
 	scanf("%s", nombre);
 	
 	int cont;
-	printf("De cuantos tipos es su pokemon (ingrese un numero entero): \n");
+	printf("De cuantos tipos es su pokemon (ingrese un numero entero): ");
 	scanf("%i", &cont);
 	
+	char *aux;
 	for (int i = 0; i < cont; i++)
 	{
-		printf("Ingrese el tipo de su pokemon: \n");
+		printf("Ingrese el tipo de su pokemon: ");
 		scanf("%s", tipo);
+		getchar();
 		pushBack(lista, tipo);
+
+		aux = firstList(lista);
+		printf("%s\n", aux);
 	}
-	char *aux = firstList(lista);
+	
+	aux = firstList(lista);
 	while(aux){
-		printf("%s", aux);
+		puts(aux);
 		aux = nextList(lista);
 	}
 
@@ -93,6 +99,8 @@ void caso2(List * almacenamiento, HashMap *mapaPokedex, HashMap *mapaNombre, Has
 	printf("Ingrese el numero en la pokedex del pokemon: \n");
 	// Funcion comparar numero pokedex????
 	scanf("%i", &numPokedex);
+
+
 
 	printf("Ingrese la region del pokemon: \n");
 	scanf("%s", region);
