@@ -45,7 +45,7 @@ void mostrarOpciones()
 
 void caso1();
 
-void caso2(HashMap *pokedex, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *mapaRegion, HashMap *mapaNumPokedex)
+void caso2(List * almacenamiento, HashMap *mapaPokedex, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *mapaRegion, HashMap *mapaNumPokedex)
 {
 	char nombre[15];
 	char tipo[20]; 
@@ -101,7 +101,7 @@ void caso2(HashMap *pokedex, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapa
 	printf("Ingese la region del pokemon: \n");
 	scanf("%s", region);
 
-	agregarPokemon(pokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex, nombre, lista, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region);
+	agregarPokemon(almacenamiento, mapaPokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex, nombre, lista, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region);
 }
 
 void caso10(HashMap * map)
@@ -115,6 +115,7 @@ void caso10(HashMap * map)
 
 void aplicarOpciones(int opcion)
 {
+	List* almacenamiento;
 	HashMap* pokedex = createMap(20);
 	HashMap* mapaNombre = createMap(20); // ??????????????
 	HashMap* mapaId = createMap(20);
@@ -128,7 +129,7 @@ void aplicarOpciones(int opcion)
 	
 			break;
 		case 2:
-			caso2(pokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex);
+			caso2(almacenamiento, pokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex);
 			break;
 		case 3: // evolcuionar
 
