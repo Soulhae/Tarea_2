@@ -231,28 +231,44 @@ void leerArchivo(List* almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombr
         int numeroPokedex;
         char *region;
 
+        List *list_tipos = createList();
+
         fgets(line,150,archivo); //elimina primera linea
         while(fgets(line,150,archivo)){
             token = strtok(line,",");
-            id = atoi(token);
+            id = atoi(token); // id debe entrar a agregar pokemon
             token = strtok(NULL,",");
-            nombre = token;
+            strcpy(nombre, token);
+
             //duda cantidad de tipos, como sabemos cuando parar? si hay mas de un tipo tiene comillas
+            token = strtok(NULL, "\"");
+            strcpy(tipos, token);
+
             token = strtok(NULL,",");
             pc = atoi(token);
             token = strtok(NULL,",");
             ps = atoi(token);
             token = strtok(NULL,",");
-            sexo = token;
+            strcpy(sexo, token);
             token = strtok(NULL,",");
-            EPrevia = token;
+            strcpy(EPrevia, token);
             token = strtok(NULL,",");
-            EPosterior = token;
+            strcpy(EPosterior, token);
             token = strtok(NULL,",");
             numeroPokedex = atoi(token);
             token = strtok(NULL,",");
-            region = token;
-            agregarPokemon(almacenamiento, mapaPokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex, nombre, tipos, pc, ps, sexo, EPrevia, EPosterior, numeroPokedex, region); //falta pasar la existencia
+            strcpy(region, token);
+
+            /* separar por tipos, hay que probar si funciona sino intentar de otra forma ><< */
+            token = strtok(tipos, ", ");
+            pushBack(list_tipos, token);
+            token = strtok(NULL, ", ");
+            if (token != NULL){
+                pushBack(list_tipos, token);
+                token = strtok(NULL, ", ");
+            }
+
+            agregarPokemon(almacenamiento, mapaPokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex, nombre, list_tipos, pc, ps, sexo, EPrevia, EPosterior, numeroPokedex, region); //falta pasar la existencia
 
         }
 
