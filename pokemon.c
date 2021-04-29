@@ -143,8 +143,8 @@ void evolucionarPokemon(HashMap* mapaId, HashMap* mapaPokedex, int id)
     }
 }
 
-void buscarNombre(HashMap* mapaNombre, char *nombre){
-    List * buscado = searchMap(mapaNombre, nombre); // si no esta esto tambien va a ser null
+void buscarNombre(HashMap* mapaNombre, char *nombre){ // debugear para ver donde explota
+    List * buscado = searchMap(mapaNombre, nombre); 
     Pokemon * pokemon = firstList(buscado);
     if(!buscado){
         printf("-----------------------------------------------\n");
