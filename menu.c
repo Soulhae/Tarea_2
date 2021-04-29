@@ -67,7 +67,7 @@ void caso2(List * almacenamiento, HashMap *mapaPokedex, HashMap *mapaNombre, Has
 	{
 		char* tipo;
 		tipo = (char*)malloc(10*sizeof(char)); 
-		printf("Ingrese el tipo de su pokemon: ");
+		printf("Ingrese el tipo de su pokemon: "); // no tiene lo guarda separado ojito
 		scanf("%s", tipo);
 		pushBack(lista, tipo);
 	}
@@ -103,9 +103,13 @@ void caso2(List * almacenamiento, HashMap *mapaPokedex, HashMap *mapaNombre, Has
 
 	agregarPokemon(almacenamiento, mapaPokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex, nombre, lista, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region);
 }
-void caso5()
+void caso5(HashMap* mapa)
 {
-	
+	char * nombre;
+	printf("Ingrese el nombre del pokemon que desea buscar: \n");
+	scanf("%s", nombre);
+
+	buscarNombre(mapa, nombre);
 }
 
 void caso10(HashMap * map)
@@ -142,7 +146,7 @@ void aplicarOpciones(int opcion)
 
 			break;
 		case 5: // buscar por nombre en almacenamiento
-
+			caso5(mapaNombre);
 			break;
 		case 6: // buscar por nombre en pokedex
 
