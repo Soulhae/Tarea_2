@@ -57,21 +57,18 @@ void enlarge(HashMap * map) {
 }
 
 void insertMap(HashMap * map, char * key, void * value) {
-    long i = hash(key, map->capacity);
-
-    while(map->buckets[i] != NULL)
-    {
-      i++;
-      if(i >= map->capacity) i = 0;
-    } 
-
-    Pair * nuevo = createPair(key, value);
-    map->buckets[i] = nuevo;
+    if(!key) exit(-1);
+    long posicion;
+    Pair * bucket;
+    bucket = createPair(key, value);
+    posicion=hash(key, map->capacity);
+    while(map->buckets[posicion]!=NULL){
+        posicion++;
+        if(posicion == map->capacity) posicion = 0;
+    }
+    map->buckets[posicion] = bucket;
     map->size++;
-
-    if(map->size >= 0.7*map->capacity)
-      enlarge(map);
-
+    map->current = posicion;
 }
 
 HashMap * createMap(long capacity) {
@@ -101,15 +98,14 @@ void eraseMap(HashMap * map,  char * key) {
   map->current = posicion;
 }
 
-void * searchMap(HashMap * map,  char * key) {   
-    long posicion = hash(key, map->capacity);
-    while(map->buckets[posicion] != NULL){
-      if(is_equal(key, map->buckets[posicion]->key) == 1){
-        map->current = posicion;
-        return map->buckets[posicion]->value;
-      }else{
-        posicion++;
-      }
+void * searchMap(HashMap * map,  char * key) {
+    int posicion;
+    posicion = hash(key, map->capacity);
+    for(int i=posicion; i<map->capacity; i++){
+        if(map->buckets[i]!=NULL && map->buckets[i]->key!=NULL && strcmp(map->buckets[i]->key, key) == 0){
+            map->current = i;
+            return map->buckets[i]->value;
+        }
     }
     return NULL;
 }

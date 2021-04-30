@@ -13,7 +13,7 @@ void caso2(List * almacenamiento, HashMap * pokedex, HashMap * mapaNombre, HashM
 
 void caso10(HashMap * map);
 
-void aplicarOpciones(int opcion);
+void aplicarOpciones(int opcion, List * almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion, HashMap * mapaNumPokedex);
 
 void interfaz();
 

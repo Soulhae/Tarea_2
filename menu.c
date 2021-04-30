@@ -66,15 +66,10 @@ void caso2(List * almacenamiento, HashMap *mapaPokedex, HashMap *mapaNombre, Has
 	for (int i = 0; i < cont; i++)
 	{
 		char* tipo;
-		tipo = (char*)malloc(10*sizeof(char)); 
+		tipo = (char*)malloc(10*sizeof(char));
 		printf("Ingrese el tipo de su pokemon: "); // no tiene lo guarda separado ojito
 		scanf("%s", tipo);
 		pushBack(lista, tipo);
-	}
-	aux = firstList(lista);
-	while(aux!=NULL){
-		printf("%s\n", aux);
-		aux = nextList(lista);
 	}
 
 	printf("Ingrese los puntos de combate del pokemon: \n");
@@ -96,12 +91,11 @@ void caso2(List * almacenamiento, HashMap *mapaPokedex, HashMap *mapaNombre, Has
 	// Funcion comparar numero pokedex????
 	scanf("%i", &numPokedex);
 
-
-
 	printf("Ingrese la region del pokemon: \n");
 	scanf("%s", region);
 
 	agregarPokemon(almacenamiento, mapaPokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex, nombre, lista, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region);
+
 }
 void caso5(HashMap* mapa)
 {
@@ -121,15 +115,8 @@ void caso10(HashMap * map)
 	mostrarRegion(region, map);	
 }
 
-void aplicarOpciones(int opcion)
+void aplicarOpciones(int opcion, List * almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion, HashMap * mapaNumPokedex)
 {
-	List* almacenamiento = createList();
-	HashMap* mapaPokedex = createMap(20);
-	HashMap* mapaNombre = createMap(20);
-	HashMap* mapaId = createMap(20);
-	HashMap* mapaTipo = createMap(20);
-	HashMap* mapaRegion = createMap(15);
-	HashMap* mapaNumPokedex = createMap(20);
 	
 	switch (opcion)
 	{
@@ -173,8 +160,15 @@ void interfaz()
 {
 	imagen();
 
-	int opcion;
+	List* almacenamiento = createList();
+	HashMap* mapaPokedex = createMap(20);
+	HashMap* mapaNombre = createMap(20);
+	HashMap* mapaId = createMap(20);
+	HashMap* mapaTipo = createMap(20);
+	HashMap* mapaRegion = createMap(15);
+	HashMap* mapaNumPokedex = createMap(20);
 
+	int opcion;
 	do{
 		mostrarOpciones();
 		scanf("%i", &opcion);
@@ -185,7 +179,7 @@ void interfaz()
 			sleep(3);
 			return;
 		}
-		else aplicarOpciones(opcion);
+		else aplicarOpciones(opcion, almacenamiento, mapaPokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex);
 		
 	} while(opcion != 0);
 }

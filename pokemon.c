@@ -81,7 +81,8 @@ void agregarPokemon(List* almacenamiento, HashMap * mapaPokedex, HashMap* mapaNo
     Pokemon* pokemon = crearPokemon(auxId, nombre, PC, PS, sexo);
     pushBack(almacenamiento, pokemon);
     
-    if (searchMap(mapaPokedex, nombre) == NULL){
+    Pokedex *aux1 = searchMap(mapaPokedex, nombre);
+    if (aux1 == NULL){
         Pokedex* pokedex = crearPokedex(nombre, tipos, previa, posterior, numPoke, region);
         insertMap(mapaPokedex, nombre, pokedex);
         insertMap(mapaNumpPokedex, numPoke, pokedex);
@@ -102,6 +103,7 @@ void agregarPokemon(List* almacenamiento, HashMap * mapaPokedex, HashMap* mapaNo
         agregarLista(mapaTipo, tipo, pokemon);
         tipo = nextList(tipos);
     }
+
 }
 
 void calcularEvolucion(Pokemon * pokemon, Pokedex* pokedex)
