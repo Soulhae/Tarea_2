@@ -29,7 +29,7 @@ void imagen()
 
 void mostrarOpciones()
 {
-	printf("Por favor ingrese una opcion (Ingrese '0' para salir)\n");
+	printf("\nPor favor ingrese una opcion (Ingrese '0' para salir)\n");
 	printf("1. Importar/Exportar desde un archivo CSV\n");
 	printf("2. Pokemon atrapado\n");
 	printf("3. Evolucionar pokemon\n");
@@ -43,7 +43,13 @@ void mostrarOpciones()
 
 }
 
-void caso1();
+void caso1(List* almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion , HashMap * mapaNumPokedex){
+
+	char nombreArchivo[20];
+	printf("\nPor favor ingrese el archivo que se desea leer: ");
+	scanf("%s", nombreArchivo);
+	leerArchivo(almacenamiento, mapaPokedex, mapaNombre, mapaId, mapaTipo, mapaRegion , mapaNumPokedex, nombreArchivo);
+}
 
 void caso2(List * almacenamiento, HashMap *mapaPokedex, HashMap *mapaNombre, HashMap *mapaId, HashMap *mapaTipo, HashMap *mapaRegion, HashMap *mapaNumPokedex)
 {
@@ -72,26 +78,26 @@ void caso2(List * almacenamiento, HashMap *mapaPokedex, HashMap *mapaNombre, Has
 		pushBack(lista, tipo);
 	}
 
-	printf("Ingrese los puntos de combate del pokemon: \n");
+	printf("Ingrese los puntos de combate del pokemon: ");
 	scanf("%i", &PC);
 
-	printf("Ingrese los puntos de salud del pokemon: \n");
+	printf("Ingrese los puntos de salud del pokemon: ");
 	scanf("%i", &PS);
 
-	printf("Ingrese el sexo del pokemon (Macho o Hembra): \n");
+	printf("Ingrese el sexo del pokemon (Macho o Hembra): ");
 	scanf("%s", sexo);
 
-	printf("Ingrese su evolucion previa (Si no tiene simplemente escriba: No tiene):\n");
+	printf("Ingrese su evolucion previa (Si no tiene simplemente escriba: No tiene): ");
 	scanf("%s", evPrevia); // OJITOOO
 
-	printf("Ingrese su evolucion posterior (Si no tiene simplemente escriba: No tiene):\n");
+	printf("Ingrese su evolucion posterior (Si no tiene simplemente escriba: No tiene): ");
 	scanf("%s", evPosterior); //OJITOO
 
-	printf("Ingrese el numero en la pokedex del pokemon: \n");
+	printf("Ingrese el numero en la pokedex del pokemon: ");
 	// Funcion comparar numero pokedex????
 	scanf("%i", &numPokedex);
 
-	printf("Ingrese la region del pokemon: \n");
+	printf("Ingrese la region del pokemon: ");
 	scanf("%s", region);
 
 	agregarPokemon(almacenamiento, mapaPokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex, nombre, lista, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region);
@@ -103,13 +109,18 @@ void caso3()
 
 }
 
-void caso5(HashMap* mapa)
+void caso5(HashMap* mapaNombre)
 {
-	char * nombre;
+	char nombre[20];
 	printf("Ingrese el nombre del pokemon que desea buscar: \n");
 	scanf("%s", nombre);
 
-	buscarNombre(mapa, nombre);
+    List *buscado = searchMap(mapaNombre, nombre);
+    if (buscado == NULL){
+        printf("aa3\n");
+    }
+
+	buscarNombre(mapaNombre, nombre);
 }
 
 void caso10(HashMap * map)
@@ -127,7 +138,7 @@ void aplicarOpciones(int opcion, List * almacenamiento, HashMap *mapaPokedex, Ha
 	switch (opcion)
 	{
 		case 1:
-	
+			caso1(almacenamiento, mapaPokedex, mapaNombre, mapaId, mapaTipo, mapaRegion , mapaNumPokedex);
 			break;
 		case 2:
 			caso2(almacenamiento, mapaPokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex);

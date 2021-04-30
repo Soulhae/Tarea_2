@@ -151,9 +151,12 @@ void evolucionarPokemon(HashMap* mapaId, HashMap* mapaPokedex, int id)
 void buscarNombre(HashMap* mapaNombre, char *nombre){ // debugear para ver donde explota
 
     List *buscado = searchMap(mapaNombre, nombre);
+
     if (buscado == NULL){
-        printf("aa\n");
+        printf("aa4\n");
+        sleep(20);
     }
+    
     printf("hola2\n");
     sleep(2);
     Pokemon *pokemon = firstList(buscado);
