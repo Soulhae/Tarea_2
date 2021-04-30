@@ -119,6 +119,9 @@ void evolucionarPokemon(HashMap* mapaId, HashMap* mapaPokedex, int id)
 	Pokemon * pokemon = searchMap(mapaId, auxId);
     Pokedex* pokedex = searchMap(mapaPokedex, pokemon->nombre);
 
+    char aux1[9]="no tiene";
+    char aux2[9]="No tiene";
+
 	if(pokemon == NULL){
         printf("-----------------------------------------------\n");
         printf("No se ha encontrado el pokemon en el almacenamiento\n");
@@ -126,7 +129,7 @@ void evolucionarPokemon(HashMap* mapaId, HashMap* mapaPokedex, int id)
 	    return;	
 	}else
     {
-        if(strcmp(pokedex->EPosterior,"No tiene" || "no tiene")!=0){
+        if(strcmp(pokedex->EPosterior,aux1)!=0 || strcmp(pokedex->EPosterior,aux2)!=0){
             printf("-----------------------------------------------\n");
             printf("El pokemon ingresado no cuenta con evolución\n");
             printf("-----------------------------------------------\n");

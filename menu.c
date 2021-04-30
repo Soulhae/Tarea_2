@@ -97,11 +97,18 @@ void caso2(List * almacenamiento, HashMap *mapaPokedex, HashMap *mapaNombre, Has
 	agregarPokemon(almacenamiento, mapaPokedex, mapaNombre, mapaId, mapaTipo, mapaRegion, mapaNumPokedex, nombre, lista, PC, PS, sexo, evPrevia, evPosterior, numPokedex, region);
 
 }
+
+void caso3()
+{
+
+}
+
 void caso5(HashMap* mapa)
 {
-	char nombre[20];
+	char * nombre;
 	printf("Ingrese el nombre del pokemon que desea buscar: \n");
 	scanf("%s", nombre);
+
 	buscarNombre(mapa, nombre);
 }
 
