@@ -60,7 +60,7 @@ void agregarLista(HashMap * map, char * key, Pokemon * nuevo)
     if(searchMap(map, key) == NULL)
     {
         List* lista = createList();
-        pushBack(lista, nuevo); 
+        pushBack(lista, nuevo);
         insertMap(map, key, lista);
     }
     else
@@ -146,19 +146,41 @@ void evolucionarPokemon(HashMap* mapaId, HashMap* mapaPokedex, int id)
 }
 
 void buscarNombre(HashMap* mapaNombre, char *nombre){ // debugear para ver donde explota
-    List * buscado = searchMap(mapaNombre, nombre); 
-    Pokemon * pokemon = firstList(buscado);
+
+    List *buscado = searchMap(mapaNombre, nombre);
+    if (buscado == NULL){
+        printf("aa\n");
+    }
+    printf("hola2\n");
+    sleep(2);
+    Pokemon *pokemon = firstList(buscado);
+    printf("hola3\n");
+    sleep(2);
     if(!buscado){
+        printf("hola4\n");
+        sleep(2);
         printf("-----------------------------------------------\n");
         printf("No se ha podido encontrar el pokemon solicitado\n");
         printf("-----------------------------------------------\n");
         return;
+        printf("hola5\n");
+        sleep(2);
     }
+    printf("hola6\n");
+    sleep(2);
     printf("%s %13s %15s %13s %18s\n", "ID", "Nombre", "PC", "PS", "Sexo");
+    printf("hola7\n");
+    sleep(2);
     while(pokemon != NULL){
+        printf("hola8\n");
+        sleep(2);
         printf("%i%*s%*i%*i%*c\n", pokemon->id, (16-strlen(pokemon->id)), nombre, 16, pokemon->pc, 14, pokemon->ps, 17, pokemon->sexo);
         pokemon = nextList(buscado);
+        printf("hola9\n");
+        sleep(2);
     }
+    printf("hola10\n");
+    sleep(2);
     printf("\n");
 }
 

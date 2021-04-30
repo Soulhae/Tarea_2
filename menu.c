@@ -99,10 +99,9 @@ void caso2(List * almacenamiento, HashMap *mapaPokedex, HashMap *mapaNombre, Has
 }
 void caso5(HashMap* mapa)
 {
-	char * nombre;
+	char nombre[20];
 	printf("Ingrese el nombre del pokemon que desea buscar: \n");
 	scanf("%s", nombre);
-
 	buscarNombre(mapa, nombre);
 }
 
