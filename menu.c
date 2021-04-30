@@ -48,6 +48,7 @@ void caso1(List* almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombre, Has
 	char nombreArchivo[20];
 	printf("\nPor favor ingrese el archivo que se desea leer: ");
 	scanf("%s", nombreArchivo);
+	printf("hola1\n");
 	leerArchivo(almacenamiento, mapaPokedex, mapaNombre, mapaId, mapaTipo, mapaRegion , mapaNumPokedex, nombreArchivo);
 }
 

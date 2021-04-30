@@ -236,10 +236,13 @@ void buscarNombre(HashMap* mapaNombre, char *nombre){ // debugear para ver donde
 }*/
 
 void leerArchivo(List* almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion , HashMap * mapaNumPokedex, char * nombreArchivo){
+
+    printf("hola2\n");
     FILE *archivo;
-    Pokemon *nuevo;
+    printf("hola3\n");
     archivo = fopen(nombreArchivo, "r");
-    if(!archivo){
+    printf("hola4\n");
+    if(archivo == NULL){
         printf("-------------------------------\n");
         printf("No se pudo encontrar el archivo\n");
         printf("-------------------------------\n");

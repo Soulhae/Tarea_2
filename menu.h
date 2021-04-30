@@ -7,7 +7,7 @@ void imagen();
 
 void mostrarOpciones();
 
-void caso1();
+void caso1(List* almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion , HashMap * mapaNumPokedex);
 
 void caso2(List * almacenamiento, HashMap * pokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion, HashMap * mapaNumPokedex);
 

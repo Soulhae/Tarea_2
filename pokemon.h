@@ -29,7 +29,7 @@ void buscarNombre(HashMap* mapaNombre, char *nombre);
 
 void buscarNombrePokedex(HashMap *pokedex, char *nombre);
 
-void leerArchivo(List* almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion , HashMap * mapaNumPokedex, char nombreArchivo);
+void leerArchivo(List* almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion , HashMap * mapaNumPokedex, char * nombreArchivo);
 
 void mostrarRegion(char * region, HashMap * map);
 
