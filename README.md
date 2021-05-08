@@ -1,5 +1,15 @@
-# Tarea 2 Pokemiau
+# avance-tareita-2
 
-### NOTA PARA EL USUARIO
+Esta listo:
+Leer archivo
+Guardar todo en mapas y listas
+Agregar un pokemon
+Busqueda por nombre en pokemones
+Busqueda por nombre en pokedex
+Busqueda por region
+Eliminar un pokemon
 
-_Para importar un archivo csv, debe estar en la carpeta del proyecto_
+Lo que falta:
+Exportar archivo
+Evolucionar un pokemon
+Mostrar (pokedex ordenados por num pokedex, pokemones ordenados por pc)

@@ -7,35 +7,52 @@ typedef struct Pokemon Pokemon;
 
 typedef struct Pokedex Pokedex;
 
-Pokemon* crearPokemon(char* ID, char * nombre, int PC, int PS, char *sexo);
+void menu_pokemon();
 
-Pokedex* crearPokedex(char * nombre, List* tipos, char * previa, char * posterior, int num, char * region);
+void leer_archivo(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region);
 
-void agregarLista(HashMap * map, char * key, Pokemon * nuevo);
+void pedir_datos(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region);
 
-void agregarPokemon(List * almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion, HashMap * mapNumPokedex, char * nombre, List* tipos, int PC, int PS, char *sexo, char * previa, char * posterior, int numPokedex, char * region);
+Pokemon *crear_pokemon(char *id, char *nombre, int pc, int ps, char *sexo);
 
-void evolucionarPokemon(HashMap* almacenamiento, HashMap* pokedex,int id);
+Pokedex *crear_pokedex(char *nombre, char *tipos, char *ev_prev, char *ev_post, int num_pokedex, char *region);
 
-void calcularEvolucion(Pokemon * pokemon, Pokedex* pokedex);
+void insert_map_pokedex(Pokedex *pokedex, HashMap *map_pokedex, List *list_numpokedex);
 
-void buscarId(HashMap* mapaId, int id_pokemon);
+void insert_map_pokemon(Pokemon *pokemon, HashMap *map_pokemon);
 
-void buscarTipo(HashMap* mapaTipo);
+void insert_map_id(Pokemon *pokemon, HashMap *map_id);
 
-int contar(int num);
+void insert_map_tipo(Pokemon *pokemon, Pokedex *pokedex, HashMap *map_tipo);
 
-void buscarNombre(HashMap* mapaNombre, char *nombre);
+void insert_map_region(Pokedex *pokedex, HashMap *map_region);
 
-void buscarNombrePokedex(HashMap *pokedex, char *nombre);
+void leer_lista(List *lista);
 
-void leerArchivo(List* almacenamiento, HashMap *mapaPokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion , HashMap * mapaNumPokedex, char * nombreArchivo);
+void leer_mapa_id(HashMap *map);
 
-void mostrarRegion(char * region, HashMap * map);
+void leer_mapa_pokedex(HashMap *map);
 
-void ordenarPorPC(List *list_pokemon);
+void leer_mapa_tipos(HashMap *map_tipo);
 
-void liberarPokemon(char *id, HashMap * mapaPokedex, HashMap * mapaNombre, HashMap * mapaId, HashMap * mapaTipo, HashMap * mapaRegion, HashMap * mapaNumPokedex);
+void leer_mapa_pokemon(HashMap *map_pokemon);
 
+void leer_mapa_region(HashMap *map_region);
+
+void leer_tipos(HashMap *map_region, Pokedex *pokedex);
+
+void leer_list_pokemon(List *list_pc);
+
+void leer_list_numpokedex(List *list_num_pokedex);
+
+void buscar_nombre_pokemon(HashMap *map_pokemon, char *nombre);
+
+void buscar_nombre_pokedex(HashMap *map_pokedex, char *nombre);
+
+void buscar_tipo(HashMap *map_tipo, char *tipo);
+
+void buscar_region(HashMap *map_region, char *region);
+
+void liberar_pokemon(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region);
 
 #endif /* POKEMON_H */
