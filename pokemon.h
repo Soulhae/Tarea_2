@@ -11,6 +11,8 @@ void bienvenida();
 
 void menu_pokemon();
 
+void exportar_archivo(HashMap *map_id, HashMap *map_pokedex);
+
 void leer_archivo(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region);
 
 void pedir_datos(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region);

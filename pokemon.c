@@ -50,7 +50,7 @@ void bienvenida()
 void menu_pokemon(){
   printf("\nMenu de opciones\n"); // mejorar mensaje
   printf("\n");
-  printf("1.- Leer archivo.\n");
+  printf("1.- Importar/Exportar archivo.\n");
   printf("2.- Atrapar un pokemon\n");
   printf("3.- Evolucionar un pokemon\n");
   printf("4.- Mostrar pokemones de acuerdo a su tipo\n");
@@ -116,10 +116,57 @@ Pokedex *crear_pokedex(char *nombre, char *tipos, char *ev_prev, char *ev_post, 
     return pokedex;
 }
 
+void exportar_archivo(HashMap *map_id, HashMap *map_pokedex){
+    char archivo[30];
+    printf("Por favor ingrese el archivo al que desea exportar (.csv): ");
+    getchar();
+
+    fgets(archivo, 30, stdin);
+    archivo[strlen(archivo) - 1] = '\0';
+
+    FILE *archivoSalida = fopen(archivo, "w");
+    if(archivoSalida == NULL){
+        printf("No se pudo crear el archivo");
+        return;
+    }
+
+    Pokemon *pokemon = firstMap(map_id);
+    fprintf(archivoSalida, "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", "id", "nombre", "tipos", "pc", "ps", "sexo", "evolucion previa", "evolucion posterior", "numero pokedex", "region");
+    while (pokemon){
+        Pokedex *pokedex = searchMap(map_pokedex, pokemon->nombre);
+        fprintf(archivoSalida, "%s,%s,", pokemon->id, pokemon->nombre);
+        char *tipos = firstList(pokedex->tipos);
+        int cont=0;
+        int cont2=0;
+        while(tipos){
+            cont++;
+            tipos = nextList(pokedex->tipos);
+        }
+        tipos = firstList(pokedex->tipos);
+        while(tipos){
+            if(cont>1){
+                if(cont2 == 0) fprintf(archivoSalida, "\"%s,", tipos);
+                else if(cont2 == cont-1) fprintf(archivoSalida, "%s\",", tipos);
+                else fprintf(archivoSalida, "%s,", tipos);
+            }else{
+                fprintf(archivoSalida, "%s,", tipos);
+            }
+            tipos = nextList(pokedex->tipos);
+            cont2++;
+        }
+        fprintf(archivoSalida, "%i,%i,%s,%s,%s,%i,%s\n", pokemon->pc, pokemon->ps, pokemon->sexo, pokedex->ev_prev, pokedex->ev_post, pokedex->num_pokedex, pokedex->region);
+        pokemon = nextMap(map_id);
+    }
+
+    if (fclose(archivoSalida) == EOF){
+        printf("El archivo no se pudo cerrar correctamente.");
+    }
+}
+
 void leer_archivo(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region){
 
     char archivo[30];
-    printf("Por favor ingrese el archivo que se desea leer: ");
+    printf("Por favor ingrese el archivo que se desea leer (.csv): ");
     getchar();
     
     fgets(archivo, 30, stdin);

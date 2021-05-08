@@ -19,6 +19,7 @@ int main()
 	bienvenida();
 
 	int opcion;
+	int caso1;
 	do{
 
 		menu_pokemon();
@@ -30,8 +31,11 @@ int main()
 		switch(opcion){
 
 			case 1: /* Leer archivo */
-				leer_archivo(list_pc, list_numpokedex, map_pokedex, map_pokemon, map_id, map_tipo, map_region);
-				printf("Se leyo el archivo correctamente.\n"); // debe ir en un if
+				printf("1.- Importar archivo\n2.- Exportar archivo\n\n");
+				printf("Ingrese opcion :");
+				scanf("%i", &caso1);
+				if(caso1==1) leer_archivo(list_pc, list_numpokedex, map_pokedex, map_pokemon, map_id, map_tipo, map_region);
+				else if(caso1==2) exportar_archivo(map_id, map_pokedex);
 				break;
 			case 2: /* Atrapar pokemon */
 				pedir_datos(list_pc, list_numpokedex, map_pokedex, map_pokemon, map_id, map_tipo, map_region);
