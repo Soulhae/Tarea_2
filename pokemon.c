@@ -65,8 +65,13 @@ void menu_pokemon(){
   printf("Ingrese opcion: ");
 }
 
-Pokemon *crear_pokemon(char *id, char *nombre, int pc, int ps, char *sexo){
+Pokemon *crear_pokemon(char *nombre, int pc, int ps, char *sexo){
     Pokemon *pokemon = (Pokemon *) malloc (sizeof(Pokemon));
+
+    char id[3];
+    int_id ++;
+    sprintf(id, "%d", int_id);
+
     strcpy(pokemon->id, id);
     int_id = atoi(id);
     //printf("%d ", int_id);
@@ -189,7 +194,7 @@ void leer_archivo(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, Ha
         token = strtok(NULL, ",");
         region = token;
 
-        pokemon = crear_pokemon(id, nombre, pc, ps, sexo);
+        pokemon = crear_pokemon(nombre, pc, ps, sexo);
         pokedex = crear_pokedex(nombre, tipo, ev_prev, ev_post, num_pokedex, region);
         //printf("\n");
         insert_map_pokemon(pokemon, map_pokemon);
@@ -216,7 +221,6 @@ void leer_archivo(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, Ha
 
 void pedir_datos(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region){
 
-    char id[3];
 	char nombre[20];
 	char sexo[10];
     char tipos[1024];
@@ -224,9 +228,6 @@ void pedir_datos(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, Has
 	char ev_post[20];
 	int pc, ps, num_pokedex;
 	char region[20];
-
-    int_id ++;
-    sprintf(id, "%d", int_id);
 
 	printf("Ingrese el nombre del pokemon: ");
 	scanf("%s", nombre);
@@ -260,7 +261,7 @@ void pedir_datos(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, Has
 	printf("Ingrese la region del pokemon: ");
 	scanf("%s", region);
 
-    Pokemon *pokemon = crear_pokemon(id, nombre, pc, ps, sexo);
+    Pokemon *pokemon = crear_pokemon(nombre, pc, ps, sexo);
     Pokedex *pokedex = crear_pokedex(nombre, tipos, ev_prev, ev_post, num_pokedex, region);
     //printf("\n");
     insert_map_pokedex(pokedex, map_pokedex, list_numpokedex);
@@ -658,15 +659,18 @@ void evolucionar(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, Hash
     pokemon->pc *= 1.5;
     pokemon->ps *= 1.25;
 
+    int num;
+
+    /* pasar lista a string
     Pokedex* evolucion = searchMap(map_pokedex, pokemon->nombre);
     if(evolucion)
         evolucion->existencia++;
     else
     {
         char posterior[20] = "No tiene";
-        crear_pokedex(pokemon->nombre, pokedex->tipos, previa, posterior, num, pokedex->tipos);
+        crear_pokedex(pokemon->nombre, pokedex->tipos, previa, posterior, num, pokedex->region);
         // falta numero pokedex
-    }
+    }*/
 
 
     printf("PC y PS ev mapa id: %i - %i \n", pokemon->pc, pokemon->ps);

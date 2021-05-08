@@ -15,7 +15,7 @@ void leer_archivo(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, Ha
 
 void pedir_datos(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region);
 
-Pokemon *crear_pokemon(char *id, char *nombre, int pc, int ps, char *sexo);
+Pokemon *crear_pokemon(char *nombre, int pc, int ps, char *sexo);
 
 Pokedex *crear_pokedex(char *nombre, char *tipos, char *ev_prev, char *ev_post, int num_pokedex, char *region);
 
