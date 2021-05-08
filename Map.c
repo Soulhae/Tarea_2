@@ -70,6 +70,8 @@ void insertMap(HashMap * map, char * key, void * value) {
     map->buckets[posicion] = bucket;
     map->size++;
     map->current = posicion;
+    
+    if (map->size >= (map->capacity * 0.7)) enlarge(map);
 }
 
 HashMap * createMap(long capacity) {

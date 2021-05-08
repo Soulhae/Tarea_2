@@ -7,6 +7,8 @@ typedef struct Pokemon Pokemon;
 
 typedef struct Pokedex Pokedex;
 
+void bienvenida();
+
 void menu_pokemon();
 
 void leer_archivo(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region);

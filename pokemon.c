@@ -30,8 +30,26 @@ struct Pokedex{
     char region[20];
 };
 
+void bienvenida()
+{
+    printf("                                  ,'\\\n");
+    printf("    _.----.        ____         ,'  _\\   ___    ___     ____\n");
+    printf("_,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.\n");
+    printf("\\      __    \\    '-.  | /   `.  ___    |    \\/    |   '-.   \\ |  |\n");
+    printf(" \\.    \\ \\   |  __  |  |/    ,','_  `.  |          | __  |    \\|  |\n");
+    printf("   \\    \\/   /,' _`.|      ,' / / / /   |          ,' _`.|     |  |\n");
+    printf("    \\     ,-'/  /   \\    ,'   | \\/ / ,`.|         /  /   \\  |     |\n");
+    printf("     \\    \\ |   \\_/  |   `-.  \\    `'  /|  |    ||   \\_/  | |\\    |\n");
+    printf("      \\    \\ \\      /       `-.`.___,-' |  |\\  /| \\      /  | |   |\n");
+    printf("       \\    \\ `.__,'|  |`-._    `|      |__| \\/ |  `.__,'|  | |   |\n");
+    printf("        \\_.-'       |__|    `-._ |              '-.|     '-.| |   |\n");
+    printf("                                `'                            '-._|\n");
+    //printf("\n");
+}
+
 void menu_pokemon(){
-  printf("\nMenu de opciones\n");
+  printf("\nMenu de opciones\n"); // mejorar mensaje
+  printf("\n");
   printf("1.- Leer archivo.\n");
   printf("2.- Atrapar un pokemon\n");
   printf("3.- Evolucionar un pokemon\n");
@@ -43,6 +61,7 @@ void menu_pokemon(){
   printf("9.- Liberar un pokemon\n");
   printf("10.- Mostrar pokemones de acuerdo a su region\n");
   printf("11.- Salir del juego\n");
+  printf("\n");
   printf("Ingrese opcion: ");
 }
 
@@ -50,28 +69,28 @@ Pokemon *crear_pokemon(char *id, char *nombre, int pc, int ps, char *sexo){
     Pokemon *pokemon = (Pokemon *) malloc (sizeof(Pokemon));
     strcpy(pokemon->id, id);
     int_id = atoi(id);
-    printf("%d ", int_id);
-    printf("%s ", pokemon->id);
+    //printf("%d ", int_id);
+    //printf("%s ", pokemon->id);
     strcpy(pokemon->nombre, nombre);
-    printf("%s ", pokemon->nombre);
+    //printf("%s ", pokemon->nombre);
     pokemon->pc = pc;
-    printf("%d ", pokemon->pc);
+    //printf("%d ", pokemon->pc);
     pokemon->ps = ps;
-    printf("%d ", pokemon->ps);
+    //printf("%d ", pokemon->ps);
     strcpy(pokemon->sexo, sexo);
-    printf("%s ", pokemon->sexo);
+    //printf("%s ", pokemon->sexo);
     return pokemon;
 }
 
 Pokedex *crear_pokedex(char *nombre, char *tipos, char *ev_prev, char *ev_post, int num_pokedex, char *region){
     Pokedex *pokedex = (Pokedex *) malloc (sizeof(Pokedex));
     strcpy(pokedex->nombre, nombre);
-    printf("%s ", pokedex->nombre);
+    //printf("%s ", pokedex->nombre);
     pokedex->existencia = 1;
-    printf("%d ", pokedex->existencia);
+    //printf("%d ", pokedex->existencia);
 
     strcpy(pokedex->string_tipos, tipos);
-    printf("%s ", pokedex->string_tipos);
+    //printf("%s ", pokedex->string_tipos);
 
     pokedex->tipos = createList();
     char *aux = strtok(pokedex->string_tipos, ", ");
@@ -82,25 +101,25 @@ Pokedex *crear_pokedex(char *nombre, char *tipos, char *ev_prev, char *ev_post, 
 
     char *aux2 = firstList(pokedex->tipos);
     while(aux2){
-        printf("%s ", aux2);
+        //printf("%s ", aux2);
         aux2 = nextList(pokedex->tipos);
     }
 
     strcpy(pokedex->ev_prev, ev_prev);
-    printf("%s ", pokedex->ev_prev);
+    //printf("%s ", pokedex->ev_prev);
     strcpy(pokedex->ev_post, ev_post);
-    printf("%s ", pokedex->ev_post);
+    //printf("%s ", pokedex->ev_post);
     pokedex->num_pokedex = num_pokedex;
-    printf("%d ", pokedex->num_pokedex);
+    //printf("%d ", pokedex->num_pokedex);
     strcpy(pokedex->region, region);
-    printf("%s ", pokedex->region);
+    //printf("%s ", pokedex->region);
     return pokedex;
 }
 
 void leer_archivo(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region){
 
     char archivo[30];
-    printf("\nPor favor ingrese el archivo que se desea leer: ");
+    printf("Por favor ingrese el archivo que se desea leer: ");
     getchar();
     
     fgets(archivo, 30, stdin);
@@ -172,7 +191,7 @@ void leer_archivo(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, Ha
 
         pokemon = crear_pokemon(id, nombre, pc, ps, sexo);
         pokedex = crear_pokedex(nombre, tipo, ev_prev, ev_post, num_pokedex, region);
-        printf("\n");
+        //printf("\n");
         insert_map_pokemon(pokemon, map_pokemon);
         insert_map_id(pokemon, map_id);
         pushBack(list_pc, pokemon);
@@ -243,7 +262,7 @@ void pedir_datos(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, Has
 
     Pokemon *pokemon = crear_pokemon(id, nombre, pc, ps, sexo);
     Pokedex *pokedex = crear_pokedex(nombre, tipos, ev_prev, ev_post, num_pokedex, region);
-    printf("\n");
+    //printf("\n");
     insert_map_pokedex(pokedex, map_pokedex, list_numpokedex);
     insert_map_pokemon(pokemon, map_pokemon);
     insert_map_id(pokemon, map_id);
@@ -445,7 +464,6 @@ void leer_list_numpokedex(List *list_num_pokedex){
         printf("%s %d %s %s %d %s %s\n", pokedex->nombre, pokedex->existencia, pokedex->ev_prev, pokedex->ev_post, pokedex->num_pokedex, pokedex->region, pokedex->string_tipos);
         pokedex = nextList(list_num_pokedex);
     }
-
 }
 
 void buscar_nombre_pokemon(HashMap *map_pokemon, char *nombre){
@@ -462,7 +480,6 @@ void buscar_nombre_pokemon(HashMap *map_pokemon, char *nombre){
         printf("%s %d %d %s\n", pokemon->id, pokemon->pc, pokemon->ps, pokemon->sexo);
         pokemon = nextList(list_pokemon);
     }
-
 }
 
 void buscar_nombre_pokedex(HashMap *map_pokedex, char *nombre){
@@ -498,7 +515,6 @@ void buscar_tipo(HashMap *map_tipo, char *tipo){
         printf("%s %s %d %d %s\n", pokemon->id, pokemon->nombre, pokemon->pc, pokemon->ps, pokemon->sexo);
         pokemon = nextList(list_pokemon);
     }
-
 }
 
 void buscar_region(HashMap *map_region, char *region){
@@ -542,7 +558,7 @@ void liberar_pokemon(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, 
 
     int int_id;
     char id[3];
-    printf("Ingrese el ID del pokemon a eliminar: ");
+    printf("Ingrese la ID del pokemon a eliminar: ");
     scanf("%i", &int_id);
     sprintf(id, "%d", int_id);
     
@@ -600,5 +616,7 @@ void liberar_pokemon(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, 
     //leer_mapa_pokedex(map_pokedex);
     //leer_mapa_region(map_region);
     //leer_mapa_tipos(map_tipo);
+
+    printf("Pokemon liberado correctamente. \n");
 
 }
