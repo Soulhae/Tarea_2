@@ -7,6 +7,7 @@
 #include "pokemon.h"
 
 int int_id = 0;
+int capacidad = 0;
 
 typedef struct Pokemon Pokemon;
 typedef struct Pokedex Pokedex;
@@ -203,6 +204,11 @@ void leer_archivo(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, Ha
     while (fscanf(archivoEntrada, "%[^\n]s", linea) != EOF){
         fgetc(archivoEntrada);
 
+        if(capacidad>=100){
+            printf("Has superado la capacidad de tu almacenamiento");
+            return;
+        } 
+
         token = strtok(linea, ",");
         id = token;
 
@@ -250,6 +256,7 @@ void leer_archivo(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, Ha
         insert_map_pokedex(pokedex, map_pokedex, list_numpokedex);
         insert_map_region(pokedex, map_region);
         insert_map_tipo(pokemon, pokedex, map_tipo);
+        capacidad++;
     }
 
     //leer_mapa_id(map_id);
@@ -267,6 +274,11 @@ void leer_archivo(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, Ha
 }
 
 void pedir_datos(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region){
+
+    if(capacidad>=100){
+        printf("Has superado la capacidad de tu almacenamiento");
+        return;
+    }
 
 	char nombre[20];
 	char sexo[10];
@@ -317,6 +329,7 @@ void pedir_datos(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, Has
     insert_map_tipo(pokemon, pokedex, map_tipo);
     insert_map_region(pokedex, map_region);
     pushBack(list_pc, pokemon);
+    capacidad++;
 
     //leer_mapa_id(map_id);
     //leer_mapa_pokemon(map_pokemon);
@@ -666,6 +679,7 @@ void liberar_pokemon(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, 
     //leer_mapa_tipos(map_tipo);
 
     printf("Pokemon liberado correctamente. \n");
+    capacidad--;
 
 }
 
