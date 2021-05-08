@@ -585,7 +585,7 @@ void liberar_pokemon(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, 
     pokemon = firstList(list_pc);
     while(pokemon)
     {
-        if(strcmp(pokemon->nombre, nombre) == 0){
+        if(strcmp(pokemon->id, id) == 0){ 
             popCurrent(list_pc);
             break;
         }
@@ -619,4 +619,58 @@ void liberar_pokemon(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, 
 
     printf("Pokemon liberado correctamente. \n");
 
+}
+
+void evolucionar(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region)
+{
+    // que se hace con lista num pokedex?
+    int int_id;
+    char id[3];
+    printf("Ingrese la ID del pokemon a evolucionar: ");
+    scanf("%i", &int_id);
+    sprintf(id, "%d", int_id);
+
+    Pokemon* pokemon = searchMap(map_id, id);
+    if(!pokemon)
+    {
+        printf("no se encuentra"); // nos salimos de la funcion o pedimos que ingrese denuevo otro id?
+        return;
+    }
+
+    List* lista = searchMap(map_pokemon, pokemon->nombre);
+    pokemon = firstList(lista);
+    while(pokemon)
+    {
+        if (strcmp(pokemon->id, id) == 0) break;
+        else pokemon = nextList(lista);
+    }
+
+    Pokedex* pokedex = searchMap(map_pokedex, pokemon->nombre);
+    if(strcmp(pokedex->ev_post, "No tiene") == 0)
+    {
+        printf("El pokemon ingresado no tiene evolucion.\n");
+        return;
+    }
+    char *previa = pokedex->ev_prev;
+    pokedex->existencia--;
+    printf("PC y PS originales: %i - %i \n", pokemon->pc, pokemon->ps);
+    strcpy(pokemon->nombre, pokedex->ev_post);
+    pokemon->pc *= 1.5;
+    pokemon->ps *= 1.25;
+
+    Pokedex* evolucion = searchMap(map_pokedex, pokemon->nombre);
+    if(evolucion)
+        evolucion->existencia++;
+    else
+    {
+        char posterior[20] = "No tiene";
+        crear_pokedex(pokemon->nombre, pokedex->tipos, previa, posterior, num, pokedex->tipos);
+        // falta numero pokedex
+    }
+
+
+    printf("PC y PS ev mapa id: %i - %i \n", pokemon->pc, pokemon->ps);
+    printf("PC y PS otro mapa: %i - %i \n", pokemon->pc, pokemon->ps);
+    
+    
 }
