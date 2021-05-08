@@ -41,6 +41,7 @@ int main()
 				pedir_datos(list_pc, list_numpokedex, map_pokedex, map_pokemon, map_id, map_tipo, map_region);
 				break;
 			case 3: /* Evolucionar pokemon */
+				evolucionar(list_pc, map_pokedex, map_pokemon, map_id, map_tipo, map_region);
 				break;
 			case 4:; /* Buscar pokemones por tipo */
 
