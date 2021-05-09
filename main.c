@@ -70,7 +70,7 @@ int main()
 				break;
 
 			case 7: /* Mostrar todos los pokemones de la pokedex (en orden por num pokedex) */
-				ordenar_pokedex(list_numpokedex);
+				ordenar_pokedex(map_pokedex);
 				break;
 			case 8: /* Mostrar pokemones ordenar por pc */
 				ordenar_pc(list_pc);

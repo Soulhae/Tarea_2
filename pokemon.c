@@ -768,7 +768,7 @@ void ordenar_pc(List *list_pc)
 
     Pokemon aux;
     
-    /*for(i = 0; i < cont-1; i++)
+    /*for(i = 0; i < cont; i++)
     {
         for(j = i+1; j < cont-1; j++)
         {
@@ -795,11 +795,10 @@ void ordenar_pc(List *list_pc)
         }
         arreglo[j+1] = aux;
    }
-    int benja = 0;
+
    for  (i = 0; i < cont; i++)
    {
-       benja++;
-       printf("%s %i %i\n", arreglo[i].nombre, arreglo[i].pc, benja);
+       printf("%s %i %i\n", arreglo[i].nombre, arreglo[i].pc);
    }
    printf("%i", capacidad);
    
@@ -819,70 +818,42 @@ void ordenar_pc(List *list_pc)
     } */
 }
 
-void ordenar_pokedex(List* list_numpokedex)
+void ordenar_pokedex(HashMap* map_pokedex)
 {
-    int cont = 0;
-    Pokedex* pokemon = firstList(list_numpokedex);
-    while(pokemon)
-    {
-        cont++;
-        pokemon = nextList(list_numpokedex);
-    }
+    int cont = size(map_pokedex);
+    Pokedex* pokemon = firstMap(map_pokedex);
 
-    int* arreglo = (int*) malloc(cont * sizeof(int));
-    int i, j, flag, aux;
+    Pokedex* arreglo = (Pokedex*) malloc(cont * sizeof(Pokedex));
+    int i, j;
+    Pokedex aux;
     
-    pokemon = firstList(list_numpokedex);
     for (i = 0; i < cont; i++)
     {
-        arreglo[i] = pokemon->num_pokedex;
-        pokemon = nextList(list_numpokedex);
+        strcpy(arreglo[i].nombre, pokemon->nombre);
+        arreglo[i].existencia = pokemon->existencia;
+        arreglo[i].tipos = pokemon->tipos;
+        strcpy(arreglo[i].ev_prev, pokemon->ev_prev);
+        strcpy(arreglo[i].ev_post, pokemon->ev_post);
+        arreglo[i].num_pokedex = pokemon->num_pokedex;
+        strcpy(arreglo[i].region, pokemon->region);
+
+        pokemon = nextMap(map_pokedex);
     }
-    
-    /*for(i = 0; i < cont-1; i++)
-    {
-        for(j = i+1; j < cont-1; j++)
-        {
-            printf("%i %i ", arreglo[j].pc, arreglo[j+1].pc);
-            if(arreglo[j].pc > arreglo[j+1].pc)
-            {
-                printf("si\n");
-                aux = arreglo[j];
-                arreglo[j] = arreglo[j+1];
-                arreglo[j+1] = aux;
-            }else 
-                printf("no\n");
-        }
-    }*/
 
     for(i = 1; i < cont; i++) // Es mas rapido si la lista ya esta ordenada?
     {          
         aux = arreglo[i];
         j = i-1;
-        while((aux < arreglo[j]) && (j >= 0))
+        while((aux.num_pokedex < arreglo[j].num_pokedex) && (j >= 0))
         {
             arreglo[j+1] = arreglo[j];
             j = j-1;
         }
         arreglo[j+1] = aux;
    }
+
    for  (i = 0; i < cont; i++)
    {
-       printf("%i\n", arreglo[i]);
+       printf("%i %s\n", arreglo[i].num_pokedex, arreglo[i].nombre);
    }
-   
-    
-    /* 
-    List* ordenada = createList();
-    for(int i=0; i < cont; i++)
-    {
-        pushBack(ordenada, &arreglo[i]);
-    } 
-
-    Pokemon* nuevo = firstList(ordenada);
-    while(nuevo)
-    {
-        printf("%s %s %i %i %s\n", nuevo->id, nuevo->nombre, nuevo->pc, nuevo->ps, nuevo->sexo);
-        nuevo = nextList(ordenada);
-    } */
 }

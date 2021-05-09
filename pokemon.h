@@ -63,6 +63,6 @@ void evolucionar(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, Hash
 
 void ordenar_pc(List *list_pc);
 
-void ordenar_pokedex(List *list_numpokedex);
+void ordenar_pokedex(HashMap *map_pokedex);
 
 #endif /* POKEMON_H */
