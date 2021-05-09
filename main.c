@@ -32,7 +32,7 @@ int main()
 
 			case 1: /* Leer archivo */
 				printf("1.- Importar archivo\n2.- Exportar archivo\n\n");
-				printf("Ingrese opcion :");
+				printf("Ingrese opcion: ");
 				scanf("%i", &caso1);
 				if(caso1==1) leer_archivo(list_pc, list_numpokedex, map_pokedex, map_pokemon, map_id, map_tipo, map_region);
 				else if(caso1==2) exportar_archivo(map_id, map_pokedex);
@@ -70,8 +70,10 @@ int main()
 				break;
 
 			case 7: /* Mostrar todos los pokemones de la pokedex (en orden por num pokedex) */
+				ordenar_pokedex(list_numpokedex);
 				break;
 			case 8: /* Mostrar pokemones ordenar por pc */
+				ordenar_pc(list_pc);
 				break;
 			case 9: /* Liberar pokemon */
 				liberar_pokemon(list_pc, map_pokedex, map_pokemon, map_id, map_tipo, map_region);

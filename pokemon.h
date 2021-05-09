@@ -61,4 +61,8 @@ void liberar_pokemon(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, 
 
 void evolucionar(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region);
 
+void ordenar_pc(List *list_pc);
+
+void ordenar_pokedex(List *list_numpokedex);
+
 #endif /* POKEMON_H */

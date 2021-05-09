@@ -13,7 +13,7 @@ typedef struct Pokemon Pokemon;
 typedef struct Pokedex Pokedex;
 
 struct Pokemon{
-    char id[3];
+    char id[4];
     char nombre[20];
     int pc;
     int ps;
@@ -69,7 +69,7 @@ void menu_pokemon(){
 Pokemon *crear_pokemon(char *nombre, int pc, int ps, char *sexo){
     Pokemon *pokemon = (Pokemon *) malloc (sizeof(Pokemon));
 
-    char id[3];
+    char id[4];
     int_id ++;
     sprintf(id, "%d", int_id);
 
@@ -151,9 +151,9 @@ void exportar_archivo(HashMap *map_id, HashMap *map_pokedex){
         tipos = firstList(pokedex->tipos);
         while(tipos){
             if(cont>1){
-                if(cont2 == 0) fprintf(archivoSalida, "\"%s,", tipos);
+                if(cont2 == 0) fprintf(archivoSalida, "\"%s, ", tipos);
                 else if(cont2 == cont-1) fprintf(archivoSalida, "%s\",", tipos);
-                else fprintf(archivoSalida, "%s,", tipos);
+                else fprintf(archivoSalida, "%s, ", tipos);
             }else{
                 fprintf(archivoSalida, "%s,", tipos);
             }
@@ -301,17 +301,19 @@ void pedir_datos(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, Has
 
 	printf("Ingrese los puntos de salud del pokemon: ");
 	scanf("%d", &ps);
+    getchar();
 
-	printf("Ingrese el sexo del pokemon (Macho o Hembra): ");
-	scanf("%s", sexo);
+	printf("Ingrese el sexo del pokemon (Macho, Hembra o 'No tiene'): ");
+	fgets(sexo, 10, stdin);
+    sexo[strlen(sexo) - 1] = '\0';
+    
+	printf("Ingrese su evolucion previa (Si no tiene simplemente escriba: 'No tiene'): ");
+	fgets(ev_prev, 20, stdin);
+    ev_prev[strlen(ev_prev) - 1] = '\0';
 
-    /* Falta verificar 'No tiene' */
-	printf("Ingrese su evolucion previa (Si no tiene simplemente escriba: No tiene): ");
-	scanf("%s", ev_prev);
-
-    /* Falta verificar 'No tiene' */
-	printf("Ingrese su evolucion posterior (Si no tiene simplemente escriba: No tiene): ");
-	scanf("%s", ev_post);
+	printf("Ingrese su evolucion posterior (Si no tiene simplemente escriba: 'No tiene'): ");
+	fgets(ev_post, 20, stdin);
+    ev_post[strlen(ev_post) - 1] = '\0';
 
     /* Falta comparar num de pokedex */
 	printf("Ingrese el numero en la pokedex del pokemon: ");
@@ -322,7 +324,7 @@ void pedir_datos(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, Has
 
     Pokemon *pokemon = crear_pokemon(nombre, pc, ps, sexo);
     Pokedex *pokedex = crear_pokedex(nombre, tipos, ev_prev, ev_post, num_pokedex, region);
-    //printf("\n");
+    
     insert_map_pokedex(pokedex, map_pokedex, list_numpokedex);
     insert_map_pokemon(pokemon, map_pokemon);
     insert_map_id(pokemon, map_id);
@@ -618,7 +620,7 @@ void buscar_region(HashMap *map_region, char *region){
 void liberar_pokemon(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region){
 
     int int_id;
-    char id[3];
+    char id[4];
     printf("Ingrese la ID del pokemon a eliminar: ");
     scanf("%i", &int_id);
     sprintf(id, "%d", int_id);
@@ -687,7 +689,7 @@ void evolucionar(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, Hash
 {
     // que se hace con lista num pokedex?
     int int_id;
-    char id[3];
+    char id[4];
     printf("Ingrese la ID del pokemon a evolucionar: ");
     scanf("%i", &int_id);
     sprintf(id, "%d", int_id);
@@ -715,7 +717,7 @@ void evolucionar(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, Hash
     }
     char *previa = pokedex->ev_prev;
     pokedex->existencia--;
-    printf("PC y PS originales: %i - %i \n", pokemon->pc, pokemon->ps);
+    //printf("PC y PS originales: %i - %i \n", pokemon->pc, pokemon->ps);
     strcpy(pokemon->nombre, pokedex->ev_post);
     pokemon->pc *= 1.5;
     pokemon->ps *= 1.25;
@@ -734,8 +736,153 @@ void evolucionar(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, Hash
     }*/
 
 
-    printf("PC y PS ev mapa id: %i - %i \n", pokemon->pc, pokemon->ps);
-    printf("PC y PS otro mapa: %i - %i \n", pokemon->pc, pokemon->ps);
+    //printf("PC y PS ev mapa id: %i - %i \n", pokemon->pc, pokemon->ps);
+    //printf("PC y PS otro mapa: %i - %i \n", pokemon->pc, pokemon->ps);
+}
+
+void ordenar_pc(List *list_pc)
+{
+    int cont = capacidad;
+    Pokemon* pokemon = firstList(list_pc);
+    /*while(pokemon)
+    {
+        cont++;
+        pokemon = nextList(list_pc);
+    }
+
+    pokemon = firstList(list_pc);*/
+
+    Pokemon* arreglo = (Pokemon*) malloc(cont * sizeof(Pokemon));
+
+    int i, j, flag;
+    for(i = 0; i < cont; i++)
+    {
+        strcpy(arreglo[i].id, pokemon->id);
+        strcpy(arreglo[i].nombre, pokemon->nombre);
+        arreglo[i].pc = pokemon->pc;
+        arreglo[i].ps = pokemon->ps;
+        strcpy(arreglo[i].sexo, pokemon->sexo);
+
+        pokemon = nextList(list_pc);
+    }
+
+    Pokemon aux;
     
+    /*for(i = 0; i < cont-1; i++)
+    {
+        for(j = i+1; j < cont-1; j++)
+        {
+            printf("%i %i ", arreglo[j].pc, arreglo[j+1].pc);
+            if(arreglo[j].pc > arreglo[j+1].pc)
+            {
+                printf("si\n");
+                aux = arreglo[j];
+                arreglo[j] = arreglo[j+1];
+                arreglo[j+1] = aux;
+            }else 
+                printf("no\n");
+        }
+    }*/
+
+    for(i = 1; i < cont; i++) // Es mas rapido si la lista ya esta ordenada?
+    {          
+        aux = arreglo[i];
+        j = i-1;
+        while((aux.pc < arreglo[j].pc) && (j >= 0))
+        {
+            arreglo[j+1] = arreglo[j];
+            j = j-1;
+        }
+        arreglo[j+1] = aux;
+   }
+    int benja = 0;
+   for  (i = 0; i < cont; i++)
+   {
+       benja++;
+       printf("%s %i %i\n", arreglo[i].nombre, arreglo[i].pc, benja);
+   }
+   printf("%i", capacidad);
+   
     
+    /* 
+    List* ordenada = createList();
+    for(int i=0; i < cont; i++)
+    {
+        pushBack(ordenada, &arreglo[i]);
+    } 
+
+    Pokemon* nuevo = firstList(ordenada);
+    while(nuevo)
+    {
+        printf("%s %s %i %i %s\n", nuevo->id, nuevo->nombre, nuevo->pc, nuevo->ps, nuevo->sexo);
+        nuevo = nextList(ordenada);
+    } */
+}
+
+void ordenar_pokedex(List* list_numpokedex)
+{
+    int cont = 0;
+    Pokedex* pokemon = firstList(list_numpokedex);
+    while(pokemon)
+    {
+        cont++;
+        pokemon = nextList(list_numpokedex);
+    }
+
+    int* arreglo = (int*) malloc(cont * sizeof(int));
+    int i, j, flag, aux;
+    
+    pokemon = firstList(list_numpokedex);
+    for (i = 0; i < cont; i++)
+    {
+        arreglo[i] = pokemon->num_pokedex;
+        pokemon = nextList(list_numpokedex);
+    }
+    
+    /*for(i = 0; i < cont-1; i++)
+    {
+        for(j = i+1; j < cont-1; j++)
+        {
+            printf("%i %i ", arreglo[j].pc, arreglo[j+1].pc);
+            if(arreglo[j].pc > arreglo[j+1].pc)
+            {
+                printf("si\n");
+                aux = arreglo[j];
+                arreglo[j] = arreglo[j+1];
+                arreglo[j+1] = aux;
+            }else 
+                printf("no\n");
+        }
+    }*/
+
+    for(i = 1; i < cont; i++) // Es mas rapido si la lista ya esta ordenada?
+    {          
+        aux = arreglo[i];
+        j = i-1;
+        while((aux < arreglo[j]) && (j >= 0))
+        {
+            arreglo[j+1] = arreglo[j];
+            j = j-1;
+        }
+        arreglo[j+1] = aux;
+   }
+   for  (i = 0; i < cont; i++)
+   {
+       printf("%i\n", arreglo[i]);
+   }
+   
+    
+    /* 
+    List* ordenada = createList();
+    for(int i=0; i < cont; i++)
+    {
+        pushBack(ordenada, &arreglo[i]);
+    } 
+
+    Pokemon* nuevo = firstList(ordenada);
+    while(nuevo)
+    {
+        printf("%s %s %i %i %s\n", nuevo->id, nuevo->nombre, nuevo->pc, nuevo->ps, nuevo->sexo);
+        nuevo = nextList(ordenada);
+    } */
 }
