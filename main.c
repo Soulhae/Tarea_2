@@ -26,7 +26,7 @@ int main()
 
 		char nombre[20];
 
-		switch(opcion){
+		switch(opcion){ // ola
 
 			case 1: /* Leer archivo */
 				printf("1.- Importar archivo\n2.- Exportar archivo\n\n");
