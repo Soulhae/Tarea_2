@@ -533,12 +533,12 @@ void leer_list_numpokedex(List *list_num_pokedex){
 void buscar_nombre_pokemon(HashMap *map_pokemon, char *nombre){
 
     List *list_pokemon = searchMap(map_pokemon, nombre);
-    Pokemon *pokemon = firstList(list_pokemon);
-    if (list_pokemon == NULL || pokemon == NULL){
+    if (list_pokemon == NULL){
         printf("El pokemon buscado no existe.\n");
         return;
     }
     
+    Pokemon *pokemon = firstList(list_pokemon);
     printf("\n- Informacion de combate del pokemon: %s \n", pokemon->nombre);
     while(pokemon){
         printf("%s %d %d %s\n", pokemon->id, pokemon->pc, pokemon->ps, pokemon->sexo);
