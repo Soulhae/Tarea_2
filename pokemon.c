@@ -90,7 +90,8 @@ Pokemon *crear_pokemon(char *nombre, int pc, int ps, char *sexo){
 
 Pokedex *crear_pokedex(char *nombre, char *tipos, char *ev_prev, char *ev_post, int num_pokedex, char *region){
     Pokedex *pokedex = (Pokedex *) malloc (sizeof(Pokedex));
-    strcpy(pokedex->nombre, nombre);
+    char * nombre_aux = strtok(nombre, " ");
+    strcpy(pokedex->nombre, nombre_aux);
     //printf("%s ", pokedex->nombre);
     pokedex->existencia = 1;
     //printf("%d ", pokedex->existencia);
@@ -744,13 +745,6 @@ void ordenar_pc(List *list_pc)
 {
     int cont = capacidad;
     Pokemon* pokemon = firstList(list_pc);
-    /*while(pokemon)
-    {
-        cont++;
-        pokemon = nextList(list_pc);
-    }
-
-    pokemon = firstList(list_pc);*/
 
     Pokemon* arreglo = (Pokemon*) malloc(cont * sizeof(Pokemon));
 
@@ -767,22 +761,6 @@ void ordenar_pc(List *list_pc)
     }
 
     Pokemon aux;
-    
-    /*for(i = 0; i < cont; i++)
-    {
-        for(j = i+1; j < cont-1; j++)
-        {
-            printf("%i %i ", arreglo[j].pc, arreglo[j+1].pc);
-            if(arreglo[j].pc > arreglo[j+1].pc)
-            {
-                printf("si\n");
-                aux = arreglo[j];
-                arreglo[j] = arreglo[j+1];
-                arreglo[j+1] = aux;
-            }else 
-                printf("no\n");
-        }
-    }*/
 
     for(i = 1; i < cont; i++) // Es mas rapido si la lista ya esta ordenada?
     {          
@@ -798,24 +776,8 @@ void ordenar_pc(List *list_pc)
 
    for  (i = 0; i < cont; i++)
    {
-       printf("%s %i %i\n", arreglo[i].nombre, arreglo[i].pc);
+       printf("%s %i\n", arreglo[i].nombre, arreglo[i].pc);
    }
-   printf("%i", capacidad);
-   
-    
-    /* 
-    List* ordenada = createList();
-    for(int i=0; i < cont; i++)
-    {
-        pushBack(ordenada, &arreglo[i]);
-    } 
-
-    Pokemon* nuevo = firstList(ordenada);
-    while(nuevo)
-    {
-        printf("%s %s %i %i %s\n", nuevo->id, nuevo->nombre, nuevo->pc, nuevo->ps, nuevo->sexo);
-        nuevo = nextList(ordenada);
-    } */
 }
 
 void ordenar_pokedex(HashMap* map_pokedex)
