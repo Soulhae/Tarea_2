@@ -77,7 +77,8 @@ Pokemon *crear_pokemon(char *nombre, int pc, int ps, char *sexo){
     int_id = atoi(id);
     //printf("%d ", int_id);
     //printf("%s ", pokemon->id);
-    strcpy(pokemon->nombre, nombre);
+    char * nombre_aux = strtok(nombre, " ");
+    strcpy(pokemon->nombre, nombre_aux);
     //printf("%s ", pokemon->nombre);
     pokemon->pc = pc;
     //printf("%d ", pokemon->pc);
@@ -170,7 +171,7 @@ void exportar_archivo(HashMap *map_id, HashMap *map_pokedex){
     }
 }
 
-void leer_archivo(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region){
+void leer_archivo(HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region){
 
     char archivo[30];
     printf("Por favor ingrese el archivo que se desea leer (.csv): ");
@@ -253,8 +254,7 @@ void leer_archivo(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, Ha
         //printf("\n");
         insert_map_pokemon(pokemon, map_pokemon);
         insert_map_id(pokemon, map_id);
-        pushBack(list_pc, pokemon);
-        insert_map_pokedex(pokedex, map_pokedex, list_numpokedex);
+        insert_map_pokedex(pokedex, map_pokedex);
         insert_map_region(pokedex, map_region);
         insert_map_tipo(pokemon, pokedex, map_tipo);
         capacidad++;
@@ -262,10 +262,8 @@ void leer_archivo(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, Ha
 
     //leer_mapa_id(map_id);
     //leer_mapa_pokemon(map_pokemon);
-    //leer_list_pokemon(list_pc);
     //leer_mapa_pokedex(map_pokedex);
     //leer_mapa_region(map_region);
-    //leer_list_numpokedex(list_numpokedex);
     //leer_mapa_tipos(map_tipo);
 
     if (fclose(archivoEntrada) == EOF){
@@ -274,7 +272,7 @@ void leer_archivo(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, Ha
 
 }
 
-void pedir_datos(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region){
+void pedir_datos(HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region){
 
     if(capacidad>=100){
         printf("Has superado la capacidad de tu almacenamiento");
@@ -326,30 +324,26 @@ void pedir_datos(List *list_pc, List *list_numpokedex, HashMap *map_pokedex, Has
     Pokemon *pokemon = crear_pokemon(nombre, pc, ps, sexo);
     Pokedex *pokedex = crear_pokedex(nombre, tipos, ev_prev, ev_post, num_pokedex, region);
     
-    insert_map_pokedex(pokedex, map_pokedex, list_numpokedex);
+    insert_map_pokedex(pokedex, map_pokedex);
     insert_map_pokemon(pokemon, map_pokemon);
     insert_map_id(pokemon, map_id);
     insert_map_tipo(pokemon, pokedex, map_tipo);
     insert_map_region(pokedex, map_region);
-    pushBack(list_pc, pokemon);
     capacidad++;
 
     //leer_mapa_id(map_id);
     //leer_mapa_pokemon(map_pokemon);
-    //leer_list_pokemon(list_pc);
     //leer_mapa_pokedex(map_pokedex);
     //leer_mapa_region(map_region);
-    //leer_list_numpokedex(list_numpokedex);
     //leer_mapa_tipos(map_tipo);
 
 }
 
-void insert_map_pokedex(Pokedex *pokedex, HashMap *map_pokedex, List *list_numpokedex){
+void insert_map_pokedex(Pokedex *pokedex, HashMap *map_pokedex){
     
     Pokedex *dato_pokemon = searchMap(map_pokedex, pokedex->nombre);
     if (dato_pokemon == NULL){
         insertMap(map_pokedex, pokedex->nombre, pokedex);
-        pushBack(list_numpokedex, pokedex);
     }
     else{
         dato_pokemon->existencia ++;
@@ -509,36 +503,16 @@ void leer_tipos(HashMap *map_region, Pokedex *pokedex){
 
 }
 
-void leer_list_pokemon(List *list_pc){
-
-    Pokemon *pokemon = firstList(list_pc);
-    while(pokemon){
-        printf("%s %s %d %d %s \n", pokemon->id, pokemon->nombre, pokemon->pc, pokemon->ps, pokemon->sexo);
-        pokemon = nextList(list_pc);
-    }
-
-}
-
-void leer_list_numpokedex(List *list_num_pokedex){
-    
-    Pokedex *pokedex = firstList(list_num_pokedex);
-    List *list_tipos;
-    char *tipo;
-    while (pokedex){
-        printf("%s %d %s %s %d %s %s\n", pokedex->nombre, pokedex->existencia, pokedex->ev_prev, pokedex->ev_post, pokedex->num_pokedex, pokedex->region, pokedex->string_tipos);
-        pokedex = nextList(list_num_pokedex);
-    }
-}
-
 void buscar_nombre_pokemon(HashMap *map_pokemon, char *nombre){
 
     List *list_pokemon = searchMap(map_pokemon, nombre);
-    Pokemon *pokemon = firstList(list_pokemon);
-    if (list_pokemon == NULL || pokemon == NULL){
+    if (list_pokemon == NULL){
         printf("El pokemon buscado no existe.\n");
         return;
     }
-    
+
+    Pokemon *pokemon = firstList(list_pokemon);
+
     printf("\n- Informacion de combate del pokemon: %s \n", pokemon->nombre);
     while(pokemon){
         printf("%s %d %d %s\n", pokemon->id, pokemon->pc, pokemon->ps, pokemon->sexo);
@@ -618,7 +592,7 @@ void buscar_region(HashMap *map_region, char *region){
 
 }
 
-void liberar_pokemon(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region){
+void liberar_pokemon(HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region){
 
     int int_id;
     char id[4];
@@ -627,6 +601,11 @@ void liberar_pokemon(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, 
     sprintf(id, "%d", int_id);
     
     Pokemon* pokemon = searchMap(map_id, id);
+    if(pokemon == NULL)
+    {
+        printf("La ID ingresada no corresponde a ningun pokemon.\n");
+        return;
+    }
     char* nombre = pokemon->nombre;
 
     Pokedex* pokedex = searchMap(map_pokedex, nombre);
@@ -634,27 +613,25 @@ void liberar_pokemon(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, 
     Pokedex* borrado2 = pokedex;
     
     eraseMap(map_id, id);
-    
+
     List* lista = searchMap(map_pokemon, nombre);
     pokemon = firstList(lista);
-    while(pokemon)
+    if(pokedex->existencia == 0)
     {
-        if(strcmp(pokemon->id, id) == 0){
-            popCurrent(lista);
-            break;
-        }
-        else pokemon = nextList(lista);
+        eraseMap(map_pokemon, nombre);
     }
-
-    pokemon = firstList(list_pc);
-    while(pokemon)
+    else
     {
-        if(strcmp(pokemon->id, id) == 0){ 
-            popCurrent(list_pc);
-            break;
+        while(pokemon)
+        {
+            if(strcmp(pokemon->id, id) == 0){
+                popCurrent(lista);
+                break;
+            }
+            else pokemon = nextList(lista);
         }
-        else pokemon = nextList(list_pc);
     }
+    
 
     char* tipo = firstList(borrado2->tipos);
 
@@ -676,7 +653,6 @@ void liberar_pokemon(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, 
 
     //leer_mapa_id(map_id);
     //leer_mapa_pokemon(map_pokemon);
-    //leer_list_pokemon(list_pc);
     //leer_mapa_pokedex(map_pokedex);
     //leer_mapa_region(map_region);
     //leer_mapa_tipos(map_tipo);
@@ -686,7 +662,7 @@ void liberar_pokemon(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, 
 
 }
 
-void evolucionar(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region)
+void evolucionar(HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region)
 {
     // que se hace con lista num pokedex?
     int int_id;
@@ -741,14 +717,15 @@ void evolucionar(List *list_pc, HashMap *map_pokedex, HashMap *map_pokemon, Hash
     //printf("PC y PS otro mapa: %i - %i \n", pokemon->pc, pokemon->ps);
 }
 
-void ordenar_pc(List *list_pc)
+void ordenar_pc(HashMap* map_id)
 {
     int cont = capacidad;
-    Pokemon* pokemon = firstList(list_pc);
-
+    
+    Pokemon* pokemon = firstMap(map_id);
     Pokemon* arreglo = (Pokemon*) malloc(cont * sizeof(Pokemon));
-
-    int i, j, flag;
+    
+    int i, j;
+    Pokemon aux;
     for(i = 0; i < cont; i++)
     {
         strcpy(arreglo[i].id, pokemon->id);
@@ -757,10 +734,8 @@ void ordenar_pc(List *list_pc)
         arreglo[i].ps = pokemon->ps;
         strcpy(arreglo[i].sexo, pokemon->sexo);
 
-        pokemon = nextList(list_pc);
+        pokemon = nextMap(map_id);
     }
-
-    Pokemon aux;
 
     for(i = 1; i < cont; i++) // Es mas rapido si la lista ya esta ordenada?
     {          
@@ -776,7 +751,7 @@ void ordenar_pc(List *list_pc)
 
    for  (i = 0; i < cont; i++)
    {
-       printf("%s %i\n", arreglo[i].nombre, arreglo[i].pc);
+       printf("%i %s\n", arreglo[i].pc, arreglo[i].nombre);
    }
 }
 

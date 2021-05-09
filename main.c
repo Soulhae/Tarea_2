@@ -8,8 +8,6 @@
 int main()
 {
 
-	List *list_pc = createList();
-	List *list_numpokedex = createList();
 	HashMap *map_pokedex = createMap(30);
 	HashMap *map_pokemon = createMap(30);
 	HashMap *map_id = createMap(30);
@@ -34,14 +32,14 @@ int main()
 				printf("1.- Importar archivo\n2.- Exportar archivo\n\n");
 				printf("Ingrese opcion: ");
 				scanf("%i", &caso1);
-				if(caso1==1) leer_archivo(list_pc, list_numpokedex, map_pokedex, map_pokemon, map_id, map_tipo, map_region);
+				if(caso1==1) leer_archivo(map_pokedex, map_pokemon, map_id, map_tipo, map_region);
 				else if(caso1==2) exportar_archivo(map_id, map_pokedex);
 				break;
 			case 2: /* Atrapar pokemon */
-				pedir_datos(list_pc, list_numpokedex, map_pokedex, map_pokemon, map_id, map_tipo, map_region);
+				pedir_datos(map_pokedex, map_pokemon, map_id, map_tipo, map_region);
 				break;
 			case 3: /* Evolucionar pokemon */
-				evolucionar(list_pc, map_pokedex, map_pokemon, map_id, map_tipo, map_region);
+				evolucionar(map_pokedex, map_pokemon, map_id, map_tipo, map_region);
 				break;
 			case 4:; /* Buscar pokemones por tipo */
 
@@ -73,11 +71,10 @@ int main()
 				ordenar_pokedex(map_pokedex);
 				break;
 			case 8: /* Mostrar pokemones ordenar por pc */
-				ordenar_pc(list_pc);
+				ordenar_pc(map_id);
 				break;
 			case 9: /* Liberar pokemon */
-				liberar_pokemon(list_pc, map_pokedex, map_pokemon, map_id, map_tipo, map_region);
-				//leer_list_numpokedex(list_numpokedex);
+				liberar_pokemon(map_pokedex, map_pokemon, map_id, map_tipo, map_region);
 				break;
 			case 10:; /* Mostrar pokemones por region */
 
