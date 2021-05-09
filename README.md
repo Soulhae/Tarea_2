@@ -9,9 +9,10 @@ Busqueda por nombre en pokedex
 Busqueda por region
 Eliminar un pokemon
 Exportar archivo
+Mostrar (pokedex ordenados por num pokedex, pokemones ordenados por pc)
 
 Lo que falta:
 Evolucionar un pokemon
-Mostrar (pokedex ordenados por num pokedex, pokemones ordenados por pc)
+
 
 son necesarias las listas????????????
