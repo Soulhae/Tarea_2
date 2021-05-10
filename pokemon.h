@@ -81,12 +81,8 @@ void buscar_tipo(HashMap *map_tipo, char *tipo);
  */
 void buscar_region(HashMap *map_region, char *region);
 
-<<<<<<< HEAD
 /* Si se desea liberar a un pokemon de acuerdo a su id, esta funcion lo elimina de todos los mapas utilizados */
-void liberar_pokemon(char * id, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region);
-=======
 void liberar_pokemon(char * id, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region, int flag);
->>>>>>> afce0dd7cbbf80c472828d5a34b4b5f3f6232366
 
 void evolucionar(HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region);
 /*Evoluciona a un pokemon, si es que tiene evolcuon en la pokedex*/
