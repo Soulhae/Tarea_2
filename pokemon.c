@@ -496,7 +496,7 @@ void buscar_region(HashMap *map_region, char *region){
 
 }
 
-void liberar_pokemon(char* id, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region){
+void liberar_pokemon(char* id, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region, int flag){
     
     Pokemon* pokemon = searchMap(map_id, id);
     if(pokemon == NULL)
@@ -549,6 +549,10 @@ void liberar_pokemon(char* id, HashMap *map_pokedex, HashMap *map_pokemon, HashM
         tipo = nextList(borrado2->tipos);
     }
     capacidad--;
+
+    if (flag == 1)
+        printf("\n      Pokemon liberado correctamente. \n");
+    
 
 }
 
@@ -607,7 +611,7 @@ void evolucionar(HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, Ha
     num_pokedex = pokedex->num_pokedex + 1;
     strcpy(region, pokedex->region);
 
-    liberar_pokemon(id, map_pokedex, map_pokemon, map_id, map_tipo, map_region);
+    liberar_pokemon(id, map_pokedex, map_pokemon, map_id, map_tipo, map_region, 0);
 
     Pokemon *nuevo = (Pokemon *) malloc (sizeof(Pokemon));
 
