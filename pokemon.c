@@ -411,7 +411,7 @@ void buscar_nombre_pokemon(HashMap *map_pokemon, char *nombre){
 
     Pokemon *pokemon = firstList(list_pokemon);
 
-    printf("\n- Informacion de combate del pokemon: %s \n\n", pokemon->nombre);
+    printf("\n  Informacion de combate del pokemon: %s \n\n", pokemon->nombre);
     printf("%s %13s %15s %13s %18s\n", "ID", "Nombre", "PC", "PS", "Sexo");
     while(pokemon){
         //printf("%s %d %d %s\n", pokemon->id, pokemon->pc, pokemon->ps, pokemon->sexo);
@@ -427,7 +427,7 @@ void buscar_nombre_pokedex(HashMap *map_pokedex, char *nombre){
         printf("\n      El pokemon ingresado no existe en la pokedex.\n");
         return;
     }
-    printf("\n- Informacion de pokedex del pokemon: %s -\n\n", pokedex->nombre);
+    printf("\n  Informacion de pokedex del pokemon: %s \n\n", pokedex->nombre);
     printf("%s %13s %15s %13s %18s %15s %17s\n", "Num. Pokedex", "Nombre", "Existencia", "Ev. Previa", "Ev. Posterior", "Region", "Tipos");
     List *list_tipos = pokedex->tipos;
     char *tipo = firstList(list_tipos);
@@ -449,7 +449,7 @@ void buscar_tipo(HashMap *map_tipo, char *tipo){
         return;
     }
     Pokemon *pokemon = firstList(list_pokemon);
-    printf("\n- Informacion de combate de los pokemon de tipo: %s -\n\n", tipo);
+    printf("\n  Informacion de combate de los pokemon de tipo: %s  \n\n", tipo);
     printf("%s %13s %15s %13s %18s\n", "ID", "Nombre", "PC", "PS", "Sexo");
     while(pokemon){
         printf("%s%*s%*i%*i%*s\n", pokemon->id, (16-strlen(pokemon->id)), pokemon->nombre, 16, pokemon->pc, 14, pokemon->ps, 19, pokemon->sexo);
