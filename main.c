@@ -79,8 +79,7 @@ int main()
 				printf("Ingrese la ID del pokemon a eliminar: ");
 				scanf("%i", &int_id);
 				sprintf(id, "%d", int_id);
-				liberar_pokemon(id, map_pokedex, map_pokemon, map_id, map_tipo, map_region);
-				printf("\n      Pokemon liberado correctamente. \n");
+				liberar_pokemon(id, map_pokedex, map_pokemon, map_id, map_tipo, map_region, 1);
 				break;
 			case 10:; /* Mostrar pokemones por region */
 
