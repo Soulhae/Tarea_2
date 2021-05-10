@@ -74,8 +74,14 @@ int main()
 			case 8: /* Mostrar pokemones ordenar por pc */
 				ordenar_pc(map_id);
 				break;
-			case 9: /* Liberar pokemon */
-				liberar_pokemon(map_pokedex, map_pokemon, map_id, map_tipo, map_region);
+			case 9:; /* Liberar pokemon */
+				int int_id;
+				char id[4];
+				printf("Ingrese la ID del pokemon a eliminar: ");
+				scanf("%i", &int_id);
+				sprintf(id, "%d", int_id);
+				liberar_pokemon(id, map_pokedex, map_pokemon, map_id, map_tipo, map_region);
+				printf("\n      Pokemon liberado correctamente. \n");
 				break;
 			case 10:; /* Mostrar pokemones por region */
 
@@ -92,9 +98,7 @@ int main()
 				printf("Intentelo nuevamente.\n");
 				getchar();
 				break;
-		
 		}
-		
 		
 	}while(opcion != 11);
 

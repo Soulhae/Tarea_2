@@ -496,13 +496,7 @@ void buscar_region(HashMap *map_region, char *region){
 
 }
 
-void liberar_pokemon(HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region){
-
-    int int_id;
-    char id[4];
-    printf("Ingrese la ID del pokemon a eliminar: ");
-    scanf("%i", &int_id);
-    sprintf(id, "%d", int_id);
+void liberar_pokemon(char* id, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region){
     
     Pokemon* pokemon = searchMap(map_id, id);
     if(pokemon == NULL)
@@ -554,8 +548,6 @@ void liberar_pokemon(HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id
 
         tipo = nextList(borrado2->tipos);
     }
-
-    printf("\n      Pokemon liberado correctamente. \n");
     capacidad--;
 
 }
@@ -590,29 +582,47 @@ void evolucionar(HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, Ha
         printf("El pokemon ingresado no tiene evolucion.\n");
         return;
     }
-    char *previa = pokedex->ev_prev;
-    pokedex->existencia--;
-    //printf("PC y PS originales: %i - %i \n", pokemon->pc, pokemon->ps);
-    strcpy(pokemon->nombre, pokedex->ev_post);
-    pokemon->pc *= 1.5;
-    pokemon->ps *= 1.25;
-
-    int num;
-
-    /* pasar lista a string
-    Pokedex* evolucion = searchMap(map_pokedex, pokemon->nombre);
-    if(evolucion)
-        evolucion->existencia++;
+    
+    char antiguo[20];
+    char evolucion[20];
+	char sexo[10];
+    char tipos[1024];
+	char ev_prev[20];
+	char ev_post[20];
+	int pc, ps, num_pokedex;
+	char region[20];
+    Pokedex* posterior = searchMap(map_pokedex, evolucion);
+    if (posterior)
+        strcpy(ev_post, posterior->ev_post);
     else
-    {
-        char posterior[20] = "No tiene";
-        crear_pokedex(pokemon->nombre, pokedex->tipos, previa, posterior, num, pokedex->region);
-        // falta numero pokedex
-    }*/
+        strcpy(ev_post, "No tiene");
+    
+    strcpy(antiguo, pokemon->nombre);
+    strcpy(evolucion, pokedex->ev_post);
+    strcpy(sexo, pokemon->sexo);
+    pc = pokemon->pc * 1.5;
+    ps = pokemon->ps * 1.25;
+    strcpy(tipos, pokedex->string_tipos);
+    strcpy(ev_prev, antiguo);
+    num_pokedex = pokedex->num_pokedex + 1;
+    strcpy(region, pokedex->region);
 
+    liberar_pokemon(id, map_pokedex, map_pokemon, map_id, map_tipo, map_region);
 
-    //printf("PC y PS ev mapa id: %i - %i \n", pokemon->pc, pokemon->ps);
-    //printf("PC y PS otro mapa: %i - %i \n", pokemon->pc, pokemon->ps);
+    Pokemon *nuevo = (Pokemon *) malloc (sizeof(Pokemon));
+
+    strcpy(nuevo->id, id);
+    strcpy(nuevo->nombre, evolucion);
+    nuevo->pc = pc;
+    nuevo->ps = ps;
+    strcpy(nuevo->sexo, sexo);
+    pokedex = crear_pokedex(evolucion, tipos, ev_prev, ev_post, num_pokedex, region);
+    
+    insert_map_pokedex(pokedex, map_pokedex);
+    insert_map_pokemon(nuevo, map_pokemon);
+    insert_map_id(nuevo, map_id);
+    insert_map_tipo(nuevo, pokedex, map_tipo);
+    insert_map_region(pokedex, map_region);
 }
 
 void ordenar_pc(HashMap* map_id)

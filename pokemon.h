@@ -41,7 +41,7 @@ void buscar_tipo(HashMap *map_tipo, char *tipo);
 
 void buscar_region(HashMap *map_region, char *region);
 
-void liberar_pokemon(HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region);
+void liberar_pokemon(char * id, HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region);
 
 void evolucionar(HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, HashMap *map_tipo, HashMap *map_region);
 
