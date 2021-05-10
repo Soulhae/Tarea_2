@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include "map.h"
 #include "pokemon.h"
 
@@ -19,7 +20,7 @@ int main()
 	int opcion;
 	int caso1;
 	do{
-
+		sleep(1);
 		menu_pokemon();
 		scanf("%d", &opcion);
 		printf("\n");

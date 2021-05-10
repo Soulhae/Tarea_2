@@ -31,19 +31,7 @@ void insert_map_tipo(Pokemon *pokemon, Pokedex *pokedex, HashMap *map_tipo);
 
 void insert_map_region(Pokedex *pokedex, HashMap *map_region);
 
-void leer_lista(List *lista);
-
-void leer_mapa_id(HashMap *map);
-
-void leer_mapa_pokedex(HashMap *map);
-
-void leer_mapa_tipos(HashMap *map_tipo);
-
-void leer_mapa_pokemon(HashMap *map_pokemon);
-
-void leer_mapa_region(HashMap *map_region);
-
-void leer_tipos(HashMap *map_region, Pokedex *pokedex);
+int contarDigitos(int num);
 
 void buscar_nombre_pokemon(HashMap *map_pokemon, char *nombre);
 
