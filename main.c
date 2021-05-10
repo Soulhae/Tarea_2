@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 #include "map.h"
 #include "pokemon.h"
 
@@ -20,14 +19,13 @@ int main()
 	int opcion;
 	int caso1;
 	do{
-		sleep(1);
 		menu_pokemon();
 		scanf("%d", &opcion);
 		printf("\n");
 
 		char nombre[20];
 
-		switch(opcion){ // ola
+		switch(opcion){
 
 			case 1: /* Leer archivo */
 				printf("1.- Importar archivo\n2.- Exportar archivo\n\n");
