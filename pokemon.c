@@ -564,7 +564,7 @@ void evolucionar(HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, Ha
     Pokemon* pokemon = searchMap(map_id, id);
     if(!pokemon)
     {
-        printf("no se encuentra"); // nos salimos de la funcion o pedimos que ingrese denuevo otro id?
+        printf("\n                 La ID no corresponde a ningun pokemon.\n"); 
         return;
     }
 
@@ -579,7 +579,7 @@ void evolucionar(HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, Ha
     Pokedex* pokedex = searchMap(map_pokedex, pokemon->nombre);
     if(strcmp(pokedex->ev_post, "No tiene") == 0)
     {
-        printf("El pokemon ingresado no tiene evolucion.\n");
+        printf("\n                 El pokemon ingresado no tiene evolucion.\n");
         return;
     }
     
@@ -623,6 +623,8 @@ void evolucionar(HashMap *map_pokedex, HashMap *map_pokemon, HashMap *map_id, Ha
     insert_map_id(nuevo, map_id);
     insert_map_tipo(nuevo, pokedex, map_tipo);
     insert_map_region(pokedex, map_region);
+
+    printf("\n                 Su %s ha evolucionado a un %s!\n", antiguo, evolucion);
 }
 
 void ordenar_pc(HashMap* map_id)

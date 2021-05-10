@@ -44,7 +44,6 @@ int main()
 				break;
 			case 4:; /* Buscar pokemones por tipo */
 
-				/* Se cae, no funcionara hasta que se arreglen los tipos */
 				char tipo[20];
 				printf("Ingrese el tipo de pokemon que desea buscar: ");
 				scanf("%s", tipo);
